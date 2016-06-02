@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Practice-form</title>
+</head>
+
+<body>
+
+<form name="Practice-form" action="success.html" method="post">
+ 
+  <fieldset>
+ 
+  <legend>Registration, Confession, & Submission</legend><br>
+
+  <div>
+    <label> Full Name: </label>
+    <input name="full-name" type="text" required>
+  </div><br>
+
+  <div>
+    <label> Email Address: </label>
+    <input name="email-address" type="email" required>
+  </div><br>
+
+  <div>    
+    <label>Today's Date: </label>
+    <input type="date" name="date">
+  </div><br>
+
+  <div>
+    <label>Select your favorite kind of cat from this list: </label>
+      <select name="Feline type">
+        <option value="kitty0">-</option>
+        <option value="kitty1">Lion</option>
+        <option value="kitty2">Tiger</option>
+        <option value="kitty3">Panther</option>
+      </select>
+  </div><br>
+
+  <div>
+    <label>Query</label>
+    <textarea cols="100" rows="10">Why did you choose this kind of cat? </textarea> 
+  </div><br>
+
+    <div>
+      <input type="checkbox" name="agree-catsRbest" value="agreecastrbest">
+      I acknowledge that cats are the most superior species.
+    </div><br>
+
+  <div>
+    <input name="submission" type="submit" value="Submit to your feline masters">
+  </div> 
+
+</fieldset>
+
+</form>
+
+</body>
+
+</html>

@@ -12,3 +12,7 @@ section#contact-info p {
 .accomplishments {
   font-size: .8em;
 }
+
+li:first-child {
+  font-style: italic;
+}

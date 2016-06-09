@@ -47,9 +47,11 @@ figcaption {
   text-align: right;
 }
 
-@media screen and (max-width: 422px) {
-  body { font-size: 5em; }
-}
+@media screen and (max-width: 500px) {
+  h1 {
+    display: none;
+  }
+
 
 /*@media screen and (max-width: 500px) {
   body {

@@ -1,5 +1,27 @@
-#body-element {
+/*.body-element {
+  vertical-align: middle;
+  width: 960px;*/
+}
+
+body {
   width: 960px;
+}
+
+main {
+  display: inline-block;
+  vertical-align: top;
+  width: 756px;
+}
+
+section {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#external-links ul {
+  width: 200px;
+  list-style-type: none;
+  padding-left: 0px;
 }
 
 blockquote {
@@ -11,12 +33,6 @@ blockquote {
 cite {
   display: block;
   margin-top: 10px;
-}
-
-#external-links ul {
-  width: 260px;
-  list-style-type: none;
-  padding-left: 0px;
 }
 
 /* you're welcome to edit the

@@ -5,7 +5,7 @@ body {
 main {
   display: inline-block;
   vertical-align: top;
-  width: 756px;
+  width: 78%;
 }
 
 section {
@@ -14,9 +14,9 @@ section {
 }
 
 #external-links ul {
-  width: 200px;
   list-style-type: none;
   padding-left: 0px;
+  min-width: 22%;
 }
 
 blockquote {
@@ -47,14 +47,11 @@ figcaption {
   text-align: right;
 }
 
-@media screen and (max-width: 500px) {
-  h1 {
-    display: none;
-  }
+@media screen and (max-width: 422px) {
+  body { font-size: smaller; }
+}
 
+@media screen and (max-width: 375px) {
+  h1 { display: none; }
+}
 
-/*@media screen and (max-width: 500px) {
-  body {
-    background-color: hotpink;
-  }
-}*/

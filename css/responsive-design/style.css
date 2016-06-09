@@ -14,10 +14,14 @@ section {
 }
 
 #external-links ul {
+<<<<<<< HEAD
   min-width: 22%;
   /*min-width: 202px;*/
+=======
+>>>>>>> c3-4-r2
   list-style-type: none;
   padding-left: 0px;
+  min-width: 22%;
 }
 
 blockquote {
@@ -49,11 +53,9 @@ figcaption {
 }
 
 @media screen and (max-width: 422px) {
-  body { font-size: 5em; }
+  body { font-size: smaller; }
 }
 
-/*@media screen and (max-width: 500px) {
-  body {
-    background-color: hotpink;
-  }
-}*/
+@media screen and (max-width: 375px) {
+  h1 { display: none; }
+}

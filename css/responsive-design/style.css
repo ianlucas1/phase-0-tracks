@@ -1,11 +1,11 @@
 body {
-  width: 960px;
+  max-width: 960px;
 }
 
 main {
   display: inline-block;
   vertical-align: top;
-  width: 756px;
+  width: 78%;
 }
 
 section {
@@ -14,7 +14,8 @@ section {
 }
 
 #external-links ul {
-  width: 200px;
+  min-width: 22%;
+  /*min-width: 202px;*/
   list-style-type: none;
   padding-left: 0px;
 }

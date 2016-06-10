@@ -1,61 +1,41 @@
-body {
-  max-width: 960px;
-}
+body {  max-width: 960px;
+        /*float: left;*/
+        margin-left: auto;
+        margin-right: auto;       }
 
-main {
-  display: inline-block;
-  vertical-align: top;
-  width: 78%;
-}
+main {  display: inline-block;
+        vertical-align: top;
+        width: 78%;               }
 
-section {
-  display: inline-block;
-  vertical-align: top;
-}
+section { display: inline-block;
+          vertical-align: top;    }
 
-#external-links ul {
-<<<<<<< HEAD
-  min-width: 22%;
-  /*min-width: 202px;*/
-=======
->>>>>>> c3-4-r2
-  list-style-type: none;
-  padding-left: 0px;
-  min-width: 22%;
-}
+#external-links ul {  min-width: 22%;
+                      list-style-type: none;
+                      padding-left: 0px;
+                      min-width: 22%;         }
 
-blockquote {
-  border-left: 5px solid blue;
-  padding: 15px;
-  margin-left: 0px;
-}
+blockquote {  /*border-left: 10px;
+              border-right: 10px;*/
+              padding: 25px;
+              /*margin-left: 0px;*/   }
 
-cite {
-  display: block;
-  margin-top: 10px;
-}
+cite {  display: block;
+        margin-top: 10px;   }
 
 /* you're welcome to edit the
 image, figure, and figcaption CSS if you'd like, 
 but it's optional! */
-img {
-  width: 100%;
-}
+img { width: 100%;  }
 
-figure {
-  margin-left: 0px;
-  margin-right: 0px;
-}
+figure {  /*margin-left: 0px;
+          margin-right: 0px;*/  }
 
-figcaption {
-  font-style: italic;
-  text-align: right;
-}
+figcaption {  font-style: italic;
+              text-align: right;  }
 
-@media screen and (max-width: 422px) {
-  body { font-size: smaller; }
-}
+@media screen and (max-width: 450px)    { 
+          body { font-size: smaller; }  }
 
-@media screen and (max-width: 375px) {
-  h1 { display: none; }
-}
+@media screen and (max-width: 350px)    { 
+          h1 { display: none; }         }

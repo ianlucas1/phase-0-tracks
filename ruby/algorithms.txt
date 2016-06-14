@@ -1,4 +1,4 @@
-ELEVATOR-USING ROBOT
+Challenge 4.2 Algorithms, Release 0: ELEVATOR-USING ROBOT
 
 Pseudo Code:
 
@@ -22,3 +22,13 @@ Pseudo Code:
 18. Repeat #17 until desired floor is reached; when this condition is true, turn 90 degrees left and move along Wall B until you have reached the center point of the door, then stop and turn 90 deg right
 19. When door opens, move slowly through it and avoid anyone in a rush trying to enter through the door with evasive maneuvers
 20. END
+
+Challenge 4.2 Algorithms, Release 1: BUYING COFFEE FROM VENDING MACHINE
+
+Pseudo Code:
+1. Face front of vending machine
+2. Swipe debit card
+4. Wait for charge authorization
+3. On keypad, select code 1A3 for large, premium coffee
+4. Wait for coffee to dispense
+END

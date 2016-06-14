@@ -1,0 +1,24 @@
+ELEVATOR-USING ROBOT
+
+Pseudo Code:
+
+1. Move along wall until elevator is reached
+2. Rotate until facing elevator directly
+3. If you want to go up, press the up elevator button
+4. If you want to go down, press the down elevator button
+5. When elevator door opens, look to see if anyone is stepping out first
+6. When no one remains to exit, politely offer anyrobot else waiting with you to enter first
+7. When no one else remains to enter first, move into elevator
+8. When in center of elevator, turn 90 deg right and move forward until a wall is reached (Wall A)
+9. Move right along Wall A until another wall is reached (Wall B)
+10. Look for buttons on Wall B
+11. If there are no buttons on Wall B, move right along Wall B (past elevator door) until you reach Wall C
+12. Turn 90 deg left to face Wall B
+13. Look for buttons on Wall B
+14. If there are buttons on Wall B, press the button with the floor number or letters that have been pre-specified
+15. Wait as elevator climbs or descends
+16. When elevator stops, look up above door to see if you have reached the desired floor
+17. If desired floor has not been reached yet, wait for door to close again and elevator to continue moving
+18. Repeat #17 until desired floor is reached; when this condition is true, turn 90 degrees left and move along Wall B until you have reached the center point of the door, then stop and turn 90 deg right
+19. When door opens, move slowly through it and avoid anyone in a rush trying to enter through the door with evasive maneuvers
+20. END

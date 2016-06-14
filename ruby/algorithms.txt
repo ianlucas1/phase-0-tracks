@@ -28,7 +28,10 @@ Challenge 4.2 Algorithms, Release 1: BUYING COFFEE FROM VENDING MACHINE
 Pseudo Code:
 1. Face front of vending machine
 2. Swipe debit card
-4. Wait for charge authorization
-3. On keypad, select code 1A3 for large, premium coffee
-4. Wait for coffee to dispense
+3. Wait for charge authorization
+4. If there is a connection error and the modem does not permit authorization, insert $1 bill
+5. If no $1 bill or machine does not accept $1 bill, then END in disgust
+6. When charge is authorized or money is accepted, on the keypad select code 1A3 for large, premium coffee
+7. If coffee does not dispense correctly, sigh in disgust, move left, laterally to the next coffee vending machine, and repeat process
+8. Wait for coffee to dispense or second vending machine to fail
 END

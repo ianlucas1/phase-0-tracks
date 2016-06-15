@@ -1,15 +1,3 @@
-# c4-3-r1
-
-# In phase-0-tracks/ruby/hamsters.rb, build a Ruby program that asks the user for the following pieces of data about the hamster and stores them in variables:
-
-# - hamster's name (the clerk names any hamsters who come in without name tags, so all hamsters have names)
-# - volume level from 1 to 10 (some people are light sleepers who won't adopt extra-squeaky hamsters)
-# - fur color
-# - whether the hamster is a good candidate for adoption
-# - estimated age
-
-# Of course, it can be difficult to guess how old a stray hamster is, especially if that hamster has moisturized and regularly and stayed out of the sun. If the user leaves the "Estimated age?" question blank, you should set your variable for estimated age to nil.
-
 name = nil
 volume = nil
 fur = nil
@@ -19,14 +7,50 @@ age = nil
 p "Name of animal"
 name = gets.chomp
 
-p "Noise level"
+if name = "nil"
+  name = "Hammy"
+else name = name
+end
+
+p "Noise level (enter as a whole number on a scale from 1 to 10 where 1 is quiet and 10 is loud)"
 volume = gets.to_i
 
-p "Fur color"
+# just playing around with case and if statements here
+
+case volume
+  when '1','2','3','4'  
+  volume = true
+  when '5','6','7','8','9','10'
+  volume = false
+end
+
+if volume == true
+  volume = "Quiet"
+else volume = "Loud"
+end
+
+p "Fur color (describe in your own words)"
 fur = gets.chomp
 
-p "Is it a good candidate for adoption"
+p "Is it a good candidate for adoption (enter y for yes, n for no)"
 adoptability = gets.chomp
 
+if adoptability == "y"
+  adoptability = true
+else adoptability = false
+end
+
 p "Age of the animal (leave blank if unknown)"
-fur = gets.to_i
+age = gets.to_i
+
+if age = "nil"
+  age = "Unknown"
+else age = age
+end
+
+p "ANIMAL INFO"
+p "Name: #{name}"
+p "Loudness: #{volume}"
+p "Fur Color: #{fur}"
+p "Adoptability: #{adoptability}"
+p "Age: #{age}"

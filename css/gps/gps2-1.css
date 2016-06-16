@@ -1,0 +1,37 @@
+
+header {
+  background-color: rgb(50, 118, 187);
+}
+header > h1 {
+  padding: 20px;
+  color: white;
+}
+.column-1 {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    padding: 20px;
+}
+.column-2 {
+     -webkit-column-count: 2; /* Chrome, Safari, Opera */
+     padding: 20px;
+}
+#first_sentence {
+  background-color: rgb(234, 241, 248);
+  padding:20px;
+}
+ h2 {
+   font-size:20px ;
+ }
+ 
+ body {
+   font-family: helvetica;
+   background-color: rgb(255,255,255) ;
+ }
+ 
+ code {
+   background-color: rgb(238, 238, 240);
+ }
+
+details > p {
+  background-color: rgb(245, 245, 246);
+  font-size: 15px;
+}

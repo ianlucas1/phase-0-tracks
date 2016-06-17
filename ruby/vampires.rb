@@ -1,66 +1,84 @@
 name = nil
-age = nil
+age_input = nil
+birthyear = nil
+current_year = 2016
+actual_age = nil
 garlic = nil
 insurance = nil
-employees_to_process = 0
-employee_number = 0
-
-current_year = 2016
-
-#At the beginning of your program, ask the user how many employees will be processed, then begin the survey process for the first employee. After you print the result for that employee, start the survey over again, and repeat until all the employees have been processed.
+vampire_score = nil
+employees_to_process = nil
+employee_count = 0
 
 p "How many employees will be processed in today? (e.g. 3)"
 employees_to_process = gets.to_i
 
-until employee_number == employees_to_process  do
+until employee_count == employees_to_process  do
 
-  employee_number +=1;
-
+  employee_count +=1;
+  
   p "What is your name? (e.g. Lestat)"
-  name = gets.chomp
+    name = gets.chomp
+    
+  p "How old are you (e.g. 39)"
+    age_input = gets.to_i
   
   p "What year were you born (e.g. 1842)"
-  birth_year = gets.to_i
-  age = current_year - birth_year
-  
+    birth_year = gets.to_i
+      actual_age = current_year - birth_year
+    
   p "Our company cafeteria serves garlic bread. Should we order some for you? (yes/no)"
-  garlic = gets.chomp
-  
+    garlic = gets.chomp
+    
   p "Would you like to enroll in the company’s health insurance? (yes/no)"
-  insurance = gets.chomp
+    insurance = gets.chomp
   
-  p "EMPLOYEE ##{employee_number} INFO"
-  p "Name: #{name}"
-  p "Age: #{age}"
-  p "Garlic Bread: #{garlic}"
-  p "Insurance: #{insurance}"
+  allergies = nil
   
-  #If the employee got their age right, and is willing to eat garlic bread or sign up for insurance, the result is “Probably not a vampire.”
-  
-  if age < 65 && garlic == "yes"
-    p "Detection Test 1: Probably not a vampire."
-  else p "Detection Test 1: Results inconclusive."
+  until allergies == "done" || allergies == "sunshine"  do
+    p "Please list any allergies that you have, one at a time (e.g. peanuts). Once you have entered all your allergies, or if you don't have any allergies, enter 'done.'"
+    allergies = gets.chomp
   end
   
-  #If the employee got their age wrong, and hates garlic bread or waives insurance, the result is “Probably a vampire.”
-  
-  if age > 65 && (garlic == "no" || insurance == "no")
-    p "Detection Test 2: Probably a vampire."
-  else p "Detection Test 2: Results inconclusive."
-  end
-  
-  #If the employee got their age wrong, hates garlic bread, and doesn’t want insurance, the result is “Almost certainly a vampire.”
-  
-  if age > 65 && garlic == "no" && insurance == "no"
-    p "Detection Test 3: Almost certainly a vampire."
-  else p "Detection Test 3: Results inconclusive."
-  end
-  
-  #Even if the employee is an amazing liar otherwise, anyone going by the name of “Drake Cula” or “Tu Fang” is clearly a vampire, because come on. In that case, you should print “Definitely a vampire.”
-  
-  if age > 65 && garlic == "no" && insurance == "no" || name = "Drake Cula" || name = "Tu Fang"
-    p "Detection Test 4: Definitely a vampire."
-  else p "Detection Test 4: Results inconclusive."
+    if name == "Drake Cula" || name == "Tu Fang"
+      vampire_score = 1
+  elsif age_input != actual_age && garlic == "no" && insurance == "no"
+    vampire_score = 2
+    elsif age_input != actual_age && (garlic == "no" || insurance == "no")
+    vampire_score = 3.1
+  elsif allergies == "sunshine"
+    vampire_score = 3.2
+  elsif age_input == actual_age && (garlic == "yes" || insurance == "yes")
+    vampire_score = 4
+  else
+    vampire_score = 5
   end
 
+  p "EMPLOYEE ##{employee_count} INFORMATION"
+  p "Name: #{name}"
+  p "Stated Age: #{age_input}"
+  p "Actual Age: #{actual_age}"
+  p "Garlic Bread: #{garlic}"
+  p "Insurance: #{insurance}"
+  p "Sunshine Allergy: #{allergies}"
+  p "Vampire Score: #{vampire_score}"
+
+  if vampire_score == 1
+    p "Definitely a vampire."
+  elsif vampire_score == 2
+    p "Almost certainly a vampire." 
+  elsif vampire_score == 3.1 || vampire_score == 3.2
+    p "Probably a vampire." 
+  elsif vampire_score == 4
+    p "Probably not a vampire."     
+  else vampire_score == 5
+    p "Results inconclusive."     
+  end   
+
+end
+
+
+if employees_to_process == nil || employees_to_process == 0
+  p "There's always tomorrow!"
+else
+  p "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
 end

@@ -9,7 +9,7 @@ vampire_score = nil
 employees_to_process = nil
 employee_count = 0
 
-p "How many employees will be processed in today? (e.g. 3)"
+p "How many employees will be processed in today? (please enter as a whole number, e.g. 3)"
 employees_to_process = gets.to_i
 
 until employee_count == employees_to_process  do
@@ -35,23 +35,23 @@ until employee_count == employees_to_process  do
   allergies = nil
   
   until allergies == "done" || allergies == "sunshine"  do
-    p "Please list any allergies that you have, one at a time (e.g. peanuts). Once you have entered all your allergies, or if you don't have any allergies, enter 'done.'"
+    p "Please list any allergies that you have, one at a time (e.g. peanuts). After you have entered all your allergies, or if you don't have any allergies, enter 'done'."
     allergies = gets.chomp
   end
   
     if name == "Drake Cula" || name == "Tu Fang"
       vampire_score = 1
-  elsif age_input != actual_age && garlic == "no" && insurance == "no"
-    vampire_score = 2
+    elsif age_input != actual_age && garlic == "no" && insurance == "no"
+      vampire_score = 2
     elsif age_input != actual_age && (garlic == "no" || insurance == "no")
-    vampire_score = 3.1
-  elsif allergies == "sunshine"
-    vampire_score = 3.2
-  elsif age_input == actual_age && (garlic == "yes" || insurance == "yes")
-    vampire_score = 4
-  else
-    vampire_score = 5
-  end
+      vampire_score = 3.1
+    elsif allergies == "sunshine"
+      vampire_score = 3.2
+    elsif age_input == actual_age && (garlic == "yes" || insurance == "yes")
+      vampire_score = 4
+    else
+      vampire_score = 5
+    end
 
   p "EMPLOYEE ##{employee_count} INFORMATION"
   p "Name: #{name}"
@@ -63,15 +63,15 @@ until employee_count == employees_to_process  do
   p "Vampire Score: #{vampire_score}"
 
   if vampire_score == 1
-    p "Definitely a vampire."
+    p "Assessment: Definitely a vampire."
   elsif vampire_score == 2
-    p "Almost certainly a vampire." 
+    p "Assessment: Almost certainly a vampire." 
   elsif vampire_score == 3.1 || vampire_score == 3.2
-    p "Probably a vampire." 
+    p "Assessment: Probably a vampire." 
   elsif vampire_score == 4
-    p "Probably not a vampire."     
+    p "Assessment: Probably not a vampire."     
   else vampire_score == 5
-    p "Results inconclusive."     
+    p "Assessment: Results inconclusive."     
   end   
 
 end

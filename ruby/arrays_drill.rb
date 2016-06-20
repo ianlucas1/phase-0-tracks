@@ -11,12 +11,11 @@ end
 # 2 At the top of your file, add a method that takes an array and an item as parameters, and returns the array with the item added. So add_to_array([], "a") would return ["a"], and add_to_array(["a", "b", "c", 1, 2], 3) would return ["a", "b", "c", 1, 2, 3]. Print a few test calls of the method.
 
 def add_to_array(array, new_variable)
-  # array = [array] << (new_variable) # 1st way, has to be followed by array.flatten
-  # array = [array] + [new_variable] # 2nd way, has to be followed by array.flatten
-    # array.flatten
-  # [array].insert(1, new_variable).flatten # 3rd way to add a parameter
-  # [array].concat([new_variable]).flatten  # 4th way to add a parameter
-  [array].push(new_variable).flatten # 5th way to add a parameter 
+  # array = array << (new_variable) # 1st way to add a parameter
+  # array.insert(array.length, new_variable) # 2nd way to add a parameter
+  # array.concat([new_variable])  # 3rd way to add a parameter, but new param has to be an array
+  # array = array + [new_variable] # 4th way to add a parameter, but new param has to be an array
+    array.push(new_variable) # 5th way to add a parameter
 end
 
 ####################################################
@@ -60,3 +59,5 @@ p combined_arrays = [factors, new_factors].flatten
 # Calling methods from Release 2
 p build_array(1, "two", nil)
 p add_to_array(["a", "b", "c", 1, 2], 3)
+#p add_to_array([1, 2, 3, 4, 5], 6)
+#p add_to_array(["a", "b", "c", "d", "e"], "f")

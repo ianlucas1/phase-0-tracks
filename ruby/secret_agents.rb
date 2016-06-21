@@ -7,12 +7,11 @@
 # Blank spaces are not to be transformed
 # The letter "z" is an edge case, and a rule needs to be added to transform "z" to an "a"
 
-# Encryption Pseudo-code
+# Decryption Pseudo-code
 # Accept encrypted password string input
 # For each character in the string, identify the letter in each index position
 # To encrypt, shift each character to the prior letter of the alphabet
 # Blank spaces are not to be transformed
-# The letter "z" is an edge case; need to determine if the rule from the enc
 
 def encrypt(password)
   index = 0
@@ -74,7 +73,7 @@ if selector == 1
   encrypt(password)
 elsif selector == 2
   decrypt(password)
-elsif selector == 3 # This option is supposed to run the nexted method call
+elsif selector == 3 # This option is supposed to run the nested method call
   decrypt(encrypt(password)) # HELP!  THIS ONLY SEEMS TO RUN THE ENCRYPTION 
 else 
   p "Invalid input"

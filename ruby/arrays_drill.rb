@@ -2,13 +2,17 @@
 ### RELEASE 2 "Business Logic" ###
 ##################################
 
-# 1 At the top of your file, add a method that takes three items as parameters and returns an array of those items. So build_array(1, "two", nil) would return [1, "two", nil]. This won't take much code, but the syntax might feel a bit odd. At the bottom of the file, call the method to show that it works.
+# 1 At the top of your file, add a method that takes three items as parameters and returns an array of those items. 
+# So build_array(1, "two", nil) would return [1, "two", nil]. This won't take much code, but the syntax might feel a bit odd. 
+# At the bottom of the file, call the method to show that it works.
 
 def build_array(x, y, z)
   build_array = [x, y, z]
 end
 
-# 2 At the top of your file, add a method that takes an array and an item as parameters, and returns the array with the item added. So add_to_array([], "a") would return ["a"], and add_to_array(["a", "b", "c", 1, 2], 3) would return ["a", "b", "c", 1, 2, 3]. Print a few test calls of the method.
+# 2 At the top of your file, add a method that takes an array and an item as parameters, and returns the array with the item added. 
+# So add_to_array([], "a") would return ["a"], and add_to_array(["a", "b", "c", 1, 2], 3) would return ["a", "b", "c", 1, 2, 3]. 
+# Print a few test calls of the method.
 
 def add_to_array(array, new_variable)
   # array = array << (new_variable) # 1st way to add a parameter

@@ -1,41 +1,69 @@
+# RELEASE 4: SANTA SIMULATOR
+
 class Santa
 
-  attr_reader :ethnicity
+  attr_reader :santa_number, :name
+  attr_accessor :age, :cookie_preference, :beard_style
 
-  attr_accessor :age, :gender
+  def initialize(santa_number, name, age, cookie_preference, beard_style)
+    @santa_number = santa_number
+    @name = name.capitalize
+    @age = age
+    @cookie_preference = cookie_preference.capitalize
+    @beard_style = beard_style.capitalize 
+  end
+  
+end
 
-  def initialize(gender, ethnicity)
-    @gender = gender
-    @ethnicity = ethnicity 
-    @age = 0
-    @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+names_ary = %w[ Nick Nicholas Niklaas Klaus قولا_:نيكولا‎ Նիկողայոս Nicolaus Niculae Nikola ניקאַלאַס Nikolai ニコラス ]
+cookie_ary = %w[ chocolate-chip oatmeal sugar peanut-butter snickerdoodles ginger macaroons white-chocolate-macadamia-nut ]
+beard_ary = %w[ clean-shaven stubble-short stubble-medium stubble-long full-beard french-fork ducktail goatee circle-bear 
+                imperial extended-goatee anchor balbo verdi garibaldi dutch friendly-mutton-chops bandholz van-dyke ]
+
+santas = []
+
+1.upto(10000) { |santa|
+  santas << Santa.new("#{santa}", names_ary.sample, rand(0..140), cookie_ary.sample, beard_ary.sample)  
+}
+
+santas.each { |santa|
+  puts "ABOUT SANTA ##{santa.santa_number}:"
+  puts "Name - Saint #{santa.name.capitalize}"
+  puts "Age - #{santa.age}"
+  puts "Favorite Cookie - #{santa.cookie_preference.capitalize}"
+  puts "Beard Style - #{santa.beard_style.capitalize}"
+  puts "-----------------------------------------------"   
+}
+
+#===========================================#
+
+# RELEASES 1 && 2 && 3 (COMMENTED OUT BELOW)
+
+#class Santa
+
+  #def initialize(gender, ethnicity)
+  #  @gender = gender
+  #  @ethnicity = ethnicity 
+  #  @age = 0
+  #  @reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
     #puts "Initializing Santa instance ..."
-  end
+ # end
 
-  def speak
-    puts "Ho, ho, ho! Haaaappy holidays!"
-  end
+  #def get_mad_at=(reindeer_name)
+  #  if @reindeer_ranking.include?(reindeer_name)
+  #      @reindeer_ranking.delete(reindeer_name)
+  #      @reindeer_ranking.insert(@reindeer_ranking.length, reindeer_name) 
+  #  else reindeer_name = reindeer_name
+  #  end 
+  #end
 
-  def eat_milk_and_cookies(cookie_type)
-    puts "That was a good #{cookie_type}!" 
-  end
+  #def speak
+  #  puts "Ho, ho, ho! Haaaappy holidays!"
+  #end
 
-  def get_mad_at=(reindeer_name)
-    if @reindeer_ranking.include?(reindeer_name)
-        @reindeer_ranking.delete(reindeer_name)
-        @reindeer_ranking.insert(@reindeer_ranking.length, reindeer_name) 
-    else reindeer_name = reindeer_name
-    end 
-  end
-
-  def about 
-    puts "ABOUT SANTA:"
-    puts "gender - #{@gender}"
-    puts "ethnicity - #{@ethnicity}"
-    puts "age - #{@age}"
-    puts "reindeer ranking - #{@reindeer_ranking}"
-    puts "----------------------"
-  end
+  #def eat_milk_and_cookies(cookie_type)
+  #  puts "That was a good #{cookie_type}!" 
+  #end
 
   #def initialize(name, fave_cookie)
   #  @name = name
@@ -66,12 +94,12 @@ class Santa
   #def change_gender=(new_gender)
   #  @gender = new_gender
   #end
-  
+
   #def celebrate_birthday=(new_age)
   #  @age += 1
   #end
 
-end
+#end
 
 #santa = Santa.new("Male", "White")
 #santa.speak
@@ -80,32 +108,32 @@ end
 
 #===========================================#
 
-santas = []
-santas << Santa.new("female", "black")
-santas << Santa.new("female", "Latino")
-santas << Santa.new("bigender", "white")
-santas << Santa.new("male", "Japanese")
-santas << Santa.new("female", "prefer not to say")
-santas << Santa.new("gender fluid", "Mystical Creature (unicorn)")
-santas << Santa.new("N/A", "N/A")
+#santas = []
+#santas << Santa.new("female", "black")
+#santas << Santa.new("female", "Latino")
+#santas << Santa.new("bigender", "white")
+#santas << Santa.new("male", "Japanese")
+#santas << Santa.new("female", "prefer not to say")
+#santas << Santa.new("gender fluid", "Mystical Creature (unicorn)")
+#santas << Santa.new("N/A", "N/A")
 
-santas[0].about # shows information about the santa at index position zero BEFORE making changes
+#santas[0].about # shows information about the santa at index position zero BEFORE making changes
 
 #santas[0].celebrate_birthday = true #testing setter method
 
 #santas[0].change_gender = "Male" #testing setter method
 
-santas[0].get_mad_at = "Prancer" #testing setter method
+#santas[0].get_mad_at = "Prancer" #testing setter method
 
-santas[0].age = 2 #testing attr_accessor method
+#santas[0].age = 2 #testing attr_accessor method
 
-santas[0].gender = "Male" #testing attr_accessor method
+#santas[0].gender = "Male" #testing attr_accessor method
 
-santas[0].about # shows information about the santa at index position zero AFTER making changes
+#santas[0].about # shows information about the santa at index position zero AFTER making changes
 
-p santas[0].age #testing getter/attr_accessor method
+#p santas[0].age #testing getter/attr_accessor method
 
-p santas[0].ethnicity #testing getter/attr_reader method
+#p santas[0].ethnicity #testing getter/attr_reader method
 
 #===========================================#
 
@@ -133,41 +161,3 @@ p santas[0].ethnicity #testing getter/attr_reader method
 #p santas
 
 #santas.each { |santa|  santa.introduction }
-
-#===========================================#
-
-  
-
-#Add three attribute-changing (setter) methods to your Santa class:
-# 1) celebrate_birthday should age Santa by one year.
-# 2) get_mad_at can take a reindeer's name as an argument, 
-#    and move that reindeer in last place in the reindeer rankings.
-# 3) The @gender attribute should have a setter method that allows @gender 
-#    to be reassigned from outside the class definition.
-
-#Add two "getter" methods as well:
-# 1) The method age should simply return @age.
-# 2) The method ethnicity should return @ethnicity.
-# 3) Update your driver code to test your work.
-
-
-
-
-#names_ary.each do |name|
-  #puts "Adding a Santa named #{name}."
-  #santas << Santa.new(name, fave_cookies_ary)
-  #puts "There are now #{santas.length} Santas in the array."
-  #puts "----"
-#end
-
-#fave_cookies_ary.each do |fave_cookie|
-  #puts "Adding a Santa named #{name}."
-  #santas.push(fave_cookie)
-  #puts "There are now #{santas.length} Santas in the array."
-  #puts "----"
-#end
-
-
-
-
-

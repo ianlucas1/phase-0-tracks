@@ -1,14 +1,45 @@
+# RELEASE 4: SANTA SIMULATOR
+
 class Santa
 
-  attr_reader :ethnicity
+  attr_reader :santa_number, :name
+  attr_accessor :age, :cookie_preference, :beard_style
 
-  attr_accessor :age, :gender
-
-  def initialize(gender, ethnicity)
-    @gender = gender
-    @ethnicity = ethnicity 
-    @age = 0
+  def initialize(santa_number, name, age, cookie_preference, beard_style)
+    @santa_number = santa_number
+    @name = name.capitalize
+    @age = age
+    @cookie_preference = cookie_preference.capitalize
+    @beard_style = beard_style.capitalize 
   end
+  
+end
+
+names_ary = %w[ Nick Nicholas Niklaas Klaus قولا_:نيكولا‎ Նիկողայոս Nicolaus Niculae Nikola ניקאַלאַס Nikolai ニコラス ]
+cookie_ary = %w[ chocolate-chip oatmeal sugar peanut-butter snickerdoodles ginger macaroons white-chocolate-macadamia-nut ]
+beard_ary = %w[ clean-shaven stubble-short stubble-medium stubble-long full-beard french-fork ducktail goatee circle-bear 
+                imperial extended-goatee anchor balbo verdi garibaldi dutch friendly-mutton-chops bandholz van-dyke ]
+
+santas = []
+
+1.upto(10000) { |santa|
+  santas << Santa.new("#{santa}", names_ary.sample, rand(0..140), cookie_ary.sample, beard_ary.sample)  
+}
+
+santas.each { |santa|
+  puts "ABOUT SANTA ##{santa.santa_number}:"
+  puts "Name - Saint #{santa.name.capitalize}"
+  puts "Age - #{santa.age}"
+  puts "Favorite Cookie - #{santa.cookie_preference.capitalize}"
+  puts "Beard Style - #{santa.beard_style.capitalize}"
+  puts "-----------------------------------------------"   
+}
+
+#===========================================#
+
+# RELEASES 1 && 2 && 3 (COMMENTED OUT BELOW)
+
+#class Santa
 
   #def initialize(gender, ethnicity)
   #  @gender = gender
@@ -18,30 +49,21 @@ class Santa
     #puts "Initializing Santa instance ..."
  # end
 
-  def get_mad_at=(reindeer_name)
-    if @reindeer_ranking.include?(reindeer_name)
-        @reindeer_ranking.delete(reindeer_name)
-        @reindeer_ranking.insert(@reindeer_ranking.length, reindeer_name) 
-    else reindeer_name = reindeer_name
-    end 
-  end
+  #def get_mad_at=(reindeer_name)
+  #  if @reindeer_ranking.include?(reindeer_name)
+  #      @reindeer_ranking.delete(reindeer_name)
+  #      @reindeer_ranking.insert(@reindeer_ranking.length, reindeer_name) 
+  #  else reindeer_name = reindeer_name
+  #  end 
+  #end
 
-  def about 
-    puts "ABOUT SANTA:"
-    puts "gender - #{@gender}"
-    puts "ethnicity - #{@ethnicity}"
-    puts "age - #{@age}"
-    #puts "reindeer ranking - #{@reindeer_ranking}"
-    puts "----------------------"
-  end
+  #def speak
+  #  puts "Ho, ho, ho! Haaaappy holidays!"
+  #end
 
-#  def speak
-#    puts "Ho, ho, ho! Haaaappy holidays!"
-#  end
-
-#  def eat_milk_and_cookies(cookie_type)
-#    puts "That was a good #{cookie_type}!" 
-#  end
+  #def eat_milk_and_cookies(cookie_type)
+  #  puts "That was a good #{cookie_type}!" 
+  #end
 
   #def initialize(name, fave_cookie)
   #  @name = name
@@ -77,7 +99,7 @@ class Santa
   #  @age += 1
   #end
 
-end
+#end
 
 #santa = Santa.new("Male", "White")
 #santa.speak
@@ -139,38 +161,3 @@ end
 #p santas
 
 #santas.each { |santa|  santa.introduction }
-
-#===========================================#
-
-#5.times do
-#  santa = Santa.new
-#  ninja_ary << ninja
-#  ninja.karate_chops(2)
-#  ninja.roundhouse_kicks(3)
-#end
-
-santas = []
-
-gender_ary = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A"]
-ethnicity_ary = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A"]
-
-1.times do
-  santas << Santa.new(gender_ary.sample, ethnicity_ary.sample)
-end
-
-santas.each { |santa| 
-  santa.age = rand(0..140) 
-}
-
-#santas[0].age
-
-#santas.each { |santa| 
-#santas.age
-#}
-
-#p santas
-
-
-
-
-

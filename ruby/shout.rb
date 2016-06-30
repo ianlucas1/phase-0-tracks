@@ -26,5 +26,41 @@
 
 #======================================#
 
-#Release 2: Mix in a Module
+# Release 3: Convert a Standalone Module to a Mixin
+
+# Comment out the old code in shout.rb, and make a mixin 
+# version of the Shout module instead.
+
+    module Shout
+
+        def yell_angrily(words)
+            words + "!!!" + " :("
+        end
+
+        def yelling_happily(words)
+            words + "!" + " :D"
+        end
+
+    end
+
+# Write two classes representing anything that might shout, 
+# and include the Shout module in those classes.
+
+    class Bemoan
+        include Shout
+    end
+
+    class Celebrate
+        include Shout
+    end
+
+# Test your work by adding driver code at the bottom of the 
+# file that instantiates instances of your classes and calls 
+# the two module methods on each instance.
+
+    me_angry = Bemoan.new
+    p me_angry.yell_angrily("Why, God?")
+
+    me_happy = Celebrate.new
+    p me_happy.yelling_happily("Take that")
 

@@ -1,21 +1,9 @@
-# This TodoList class will contain methods to accomplish the following tasks
-# do the dishes
-# mow the lawn
-
-#class TodoList
-
-#  def initialize(@task_1, @task_2)
-#    @task_1 = task_1
-#    @task_2 = task_2
-#  end
-
-#  def get_items
-#    list = []
-#    list << TodoList.new("do the dishes", "mow the lawn")
-#  end
-
-#end
-
+# This TodoList class will contain methods to accomplish the following tasks:
+# initialize an array internal to a class
+# print the items in the array
+# add items to the array
+# delete items from the array
+# discover which item sits in a specific index position within the array
 
 class TodoList
 

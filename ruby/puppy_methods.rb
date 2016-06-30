@@ -69,7 +69,7 @@
   
   #ninja_ary = []
   
-  # 1.upto(3) do
+  # 50.times do
   # ninja = Ninja.new
   # ninja_ary << ninja
   # ninja.karate_chops(2)
@@ -102,13 +102,13 @@
   
   ninja_list = {}
   
-  1.upto(3) { |ninja_identifier|
+  1.upto(50) { |ninja_identifier|
     ninja_instance = Ninja.new
     puts "Look out, it's Ninja-#{ninja_identifier} (aka #{ninja_instance})!"
     ninja_list[ninja_instance] = "Ninja-#{ninja_identifier}"
   }
   
-  
+  # experimenting with different ways of passing blocks
   ninja_list.each do |ninja_key, ninja_value| 
     puts "#{ninja_value} #{ninja_key.karate_chops(3)}"
   end

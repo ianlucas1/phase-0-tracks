@@ -2,30 +2,36 @@
 
 class Santa
 
+  # Santa_number and name are not to be alterable, but all the other attributes can be
   attr_reader :santa_number, :name
   attr_accessor :age, :cookie_preference, :beard_style
 
+  # All of these attributes are randomized (except santa_number) and fed in upon initialization
   def initialize(santa_number, name, age, cookie_preference, beard_style)
-    @santa_number = santa_number
+    @santa_number = santa_number # I add this feature so that the list of santas at the end are easier to keep track of
     @name = name.capitalize
-    @age = age
+    @age = age # unlike in prior releases, in this release I updated age upon initialization
     @cookie_preference = cookie_preference.capitalize
     @beard_style = beard_style.capitalize 
   end
   
 end
 
+# These are the source arrays for randomizing name, cookie preference, and beard style 
+# so that each santa can be a unique snowflake
 names_ary = %w[ Nick Nicholas Niklaas Klaus قولا_:نيكولا‎ Նիկողայոս Nicolaus Niculae Nikola ניקאַלאַס Nikolai ニコラス ]
 cookie_ary = %w[ chocolate-chip oatmeal sugar peanut-butter snickerdoodles ginger macaroons white-chocolate-macadamia-nut ]
 beard_ary = %w[ clean-shaven stubble-short stubble-medium stubble-long full-beard french-fork ducktail goatee circle-bear 
                 imperial extended-goatee anchor balbo verdi garibaldi dutch friendly-mutton-chops bandholz van-dyke ]
 
-santas = []
+santas = [] # creates a data structure to store all the santas
 
+# go big or go home!
 1.upto(10000) { |santa|
   santas << Santa.new("#{santa}", names_ary.sample, rand(0..140), cookie_ary.sample, beard_ary.sample)  
 }
 
+# I like this format for printing out results to check correctness of the program
 santas.each { |santa|
   puts "ABOUT SANTA ##{santa.santa_number}:"
   puts "Name - Saint #{santa.name.capitalize}"
@@ -37,7 +43,7 @@ santas.each { |santa|
 
 #===========================================#
 
-# RELEASES 1 && 2 && 3 (COMMENTED OUT BELOW)
+# RELEASES 0 through 3 (COMMENTED OUT BELOW)
 
 #class Santa
 

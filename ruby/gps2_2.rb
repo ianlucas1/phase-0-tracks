@@ -32,6 +32,39 @@
 # steps: for each key-value pair in the list hash, print out the item and qty 
 # output: {hash with item(s), qty} with
 
+
+
+#def add_item(hash, new_item, qty)
+#  hash[new_item] = qty
+#  return hash
+#end
+
+#def delete_item(hash, item)
+#  hash.delete(item)
+#  return hash 
+#end
+
+#def update_qty(hash, item, new_qty)
+#  hash[item] = new_qty
+#  return hash
+#end
+
+#def print_list(hash)
+#  hash.each { |item, qty|
+#    puts "#{item}: #{qty}"
+#  }
+#end
+
+#items = "carrots apples cereal pizza"
+#list = create_list(items) # this calls the first method
+#list = add_item(list, "cheese", 7)
+#list = delete_item(list, "carrots")
+#list = update_qty(list, "pizza", 2)
+#print_list(list)
+
+
+
+# Create list
 def create_list(items)
   list_hash = {}
   item_ary = items.split(" ")
@@ -41,34 +74,29 @@ def create_list(items)
   return list_hash
 end
 
-def add_item(hash, new_item, qty)
-  hash[new_item] = qty
-  return hash
+# Update list
+def update(list, item, quantity)
+  list[item] = quantity
+  if quantity == 0
+    list.delete(item) 
+  end
 end
 
-def delete_item(hash, item)
-  hash.delete(item)
-  return hash 
+# Print list
+def print(list)
+  list.each do |item, quantity|
+      puts "#{item} #{quantity}"
+  end
 end
 
-def update_qty(hash, item, new_qty)
-  hash[item] = new_qty
-  return hash
-end
-
-def print_list(hash)
-  hash.each { |item, qty|
-    puts "#{item}: #{qty}"
-  }
-end
-
-items = "carrots apples cereal pizza"
-list = create_list(items) # this calls the first method
-list = add_item(list, "cheese", 7)
-list = delete_item(list, "carrots")
-list = update_qty(list, "pizza", 2)
-print_list(list)
-
+items = "Lemonade Tomatoes Onions Ice-Cream"
+list = create_list(items)
+update(list, "Lemonade", 2)
+update(list, "Tomatoes", 3)
+update(list, "Ice-Cream", 4)
+update(list, "Lemonade", 0)
+update(list, "Ice-Cream", 1)
+print(list) # prints out the hash
 
 
 

@@ -34,7 +34,7 @@ class Room
 
   # This is a way to use the inject method to add up the total value of the items in a room
   def total_value
-    total = @items.inject(0) {|sum, item| sum + item.price}
+    total = @items.reduce(0) {|sum, item| sum + item.price}
   end
 
   def to_s

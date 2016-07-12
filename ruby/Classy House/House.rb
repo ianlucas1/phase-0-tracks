@@ -39,7 +39,7 @@ class House
 
   # This is a way to use the inject method to add up the total value of the items in the house
   def total_value
-    value = @rooms.inject(0) {|sum, room| sum + room.total_value}
+    value = @rooms.reduce(0) {|sum, room| sum + room.total_value}
   end
 
   def square_footage

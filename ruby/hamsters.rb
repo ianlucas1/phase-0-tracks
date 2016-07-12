@@ -7,7 +7,7 @@ age = nil
 p "Name of animal"
 name = gets.chomp
 
-if name = "nil"
+if name == "nil"
   name = "Hammy"
 else name = name
 end
@@ -43,7 +43,7 @@ end
 p "Age of the animal (leave blank if unknown)"
 age = gets.to_i
 
-if age = "nil"
+if age == "nil"
   age = "Unknown"
 else age = age
 end

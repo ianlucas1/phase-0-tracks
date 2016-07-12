@@ -27,12 +27,12 @@ end
 
 # Driver code to ensure this unit works
 
-#item = Item.new("cardboard box", "brown", 0)
-#puts item
+item = Item.new("cardboard box", "brown", 0)
+puts item
 
-#item2= Item.new("piano", "black", 10000)
-#puts item2
+item2= Item.new("piano", "black", 10000)
+puts item2
 
-#ary = [200, 300, 1000]
-#puts ary
-#puts ary.inject(0, :+)
+ary = [200, 300, 1000]
+puts ary
+puts ary.inject(0, :+)

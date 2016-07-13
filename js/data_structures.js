@@ -1,3 +1,5 @@
+// RELEASE 0
+
 // declare two separate arrays:
 
 // an array of four colors ("blue", for instance, though you're welcome to 

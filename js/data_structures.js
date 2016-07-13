@@ -3,7 +3,7 @@
 // declare an array of four colors ("blue", for instance, though you're welcome to 
 // get crazy with something like "iridescent blue/green with silver sparkles")
 
-var colors = ["Chestnut", "Black", "Buckskin", "Palomino"]
+var colors = ["White", "Black", "Grey", "Palomino"]
 
 // declare an array of four names that you might give a horse ("Ed" is always a solid 
 // choice to start with)

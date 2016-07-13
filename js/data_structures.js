@@ -1,8 +1,8 @@
 // RELEASE 0:  WORK WITH ARRAYS
 // declare two separate arrays:
-// an array of four colors ("blue", for instance, though you're welcome to 
+// 1) an array of four colors ("blue", for instance, though you're welcome to 
 // get crazy with something like "iridescent blue/green with silver sparkles")
-// an array of four names that you might give a horse ("Ed" is always a solid 
+// 2) an array of four names that you might give a horse ("Ed" is always a solid 
 // choice to start with)
 
 var names = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharoah"]
@@ -33,6 +33,7 @@ for (var i = 0; i < names.length; i++) {
 
 console.log(horses)
 
+// RELEASE 2:  BUILD MANY OBJECTS USING A CONSTRUCTOR
 
 
 

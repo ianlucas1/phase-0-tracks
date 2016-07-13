@@ -1,4 +1,4 @@
-// RELEASE 0
+// RELEASE 0:  WORK WITH ARRAYS
 
 // declare two separate arrays:
 
@@ -18,4 +18,16 @@ names.push("Seattle Slew")
 
 console.log(colors)
 console.log(names)
+
+// RELEASE 1:  BUILD AN OBJECT
+
+// Add code that will use your two arrays to create an object. The keys of your 
+// object should be horse names, and the values should be colors. Your solution should 
+// be something that would work for any number of colors/horses, as long as the two 
+// arrays are the same length.
+
+var horses = names + colors
+
+console.log(horses)
+
 

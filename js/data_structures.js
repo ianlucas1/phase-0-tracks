@@ -5,8 +5,8 @@
 // an array of four names that you might give a horse ("Ed" is always a solid 
 // choice to start with)
 
-var colors = ["Chestnut", "Black", "Buckskin", "Palomino"]
 var names = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharoah"]
+var colors = ["Chestnut", "Black", "Buckskin", "Palomino"]
 
 // Write additional code that adds another color to the colors array, and 
 // another horse name to the horses array
@@ -25,12 +25,15 @@ names.push("Seattle Slew")
 // be something that would work for any number of colors/horses, as long as the two 
 // arrays are the same length.
 
-// Failed attempts
-// var horses = names + colors
-// var horses = [names: + colors]
-// var horses = [names + colors]
-// var horses = names.push(colors)
+var horses = {}
+
+for (var i = 0; i < names.length; i++) {
+  horses[names[i]] = colors[i];
+}
 
 console.log(horses)
+
+
+
 
 

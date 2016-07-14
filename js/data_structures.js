@@ -8,7 +8,7 @@ var colors = ["White", "Black", "Grey", "Palomino"]
 // declare an array of four names that you might give a horse ("Ed" is always a solid 
 // choice to start with)
 
-var names = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharoah"]
+var names = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharaoh"]
 
 // Write additional code that adds another color to the colors array, and 
 // another horse name to the horses array

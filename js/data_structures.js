@@ -72,4 +72,3 @@ newCar.sound();
 
 var newCar = new Car("Ferrari", 3.5, true);
 newCar.sound();
-

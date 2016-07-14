@@ -64,59 +64,35 @@ perfectMatch();
 //====================================
 
 // Release 2: Generate Random Test Data
-
-
-var rand_iterations = Math.floor(Math.random() * 10 + 1)
+  
+var letters = "abcdefghijklmnopqrstuvwxyz"
 var rand_word = "";
-var chars = "abcdefghijklmnopqrstuvwxyz"
 var rand_word_ary = []
 
-// WITHOUT A CONSTRUCTOR
-
-  // function randomWord() {
-  //   for (var i = 0; i < rand_iterations; i++)
-  //     rand_word += chars.charAt(Math.floor(Math.random() * chars.length));
-  // }
-
-  // function randomWordAry() {
-  //   for (var i = 0; i < rand_iterations; i++)
-  //     rand_word_ary.push(rand_word);
-  // }
-
-  // randomWord()
-  // console.log(rand_word);
-  // randomWordAry()
-  // console.log(rand_word_ary)
-  
-// WITH A CONSTRUCTOR
-
-  // This constructor function pushes the newly generated random word 
-  // into the random word array
-
+  // Constructor that pushes newly generated random word into the random word array
   function Word(rand_word) {
     this.rand_word = rand_word;
-    rand_word_ary.push(this.rand_word)
+    rand_word_ary.push(this.rand_word);
   }
 
-  // This function generates a word of random length with random letters
-  // It then creates/activates a new Word instance
-
+  // Generates a word with a length of 1 to 10 random letters
+  // Creates a new Word instance
+  // Resets the rand_word variable to "" to create a blank slate for the next random word
   function rand_word_generator() {
     for (var i = 0; i < Math.floor(Math.random() * 10 + 1); i++)
-      rand_word += chars.charAt(Math.floor(Math.random()*chars.length));
-      new Word(rand_word)
+      rand_word += letters.charAt(Math.floor(Math.random()*letters.length));
+      new Word(rand_word);
+      rand_word = "";
   }
 
-  // This function calculates a random number of words to generate and calls 
-  // the random word generator that many times
-
-  function rand_num_of_words() {
-    for (var i = 0; i < Math.floor(Math.random() * 10 + 1); i++)
-    rand_word_generator()
+  // Accepts input for how many strings to put into an array and calls the random word generator that many times
+    function length_of_array(integer) {
+    for (var i = 0; i < integer; i++)
+      rand_word_generator()
   }
 
-  // this call of the numOfRandomWords function initiates the whole process
-  rand_num_of_words()
+  // this call of the length_of_array function initiates the whole process
+  length_of_array(5)
   console.log(rand_word_ary)
 
 

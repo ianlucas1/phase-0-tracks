@@ -16,24 +16,56 @@
 // close the longest_str function
 // call the longest_str function
 
-var str_ary = ["White", "Black", "Grey", "Palomino"];
+// Driver code to test how the algorithm works when there are
+// blank spaces in the strings or when multiple strings have the longest length
+var str_ary = ["White", "Black", "Tawny", "Palomino"];
+// var str_ary = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharaoh"]
+// var str_ary = ["i", "went", "back", "in"];
 var str_length_ary = [];
 
 function longest_str() {  
 
   for (var i = 0; i < str_ary.length; i++) {
-    str_length_ary.push(str_ary[i].length)
+  str_length_ary.push(str_ary[i].length)
   };
 
-  var max = Math.max(...str_length_ary.length);
-  // console.log(str_length_ary);
-  // console.log(max);
-
+  var max = Math.max(...str_length_ary);
+ 
   for (var i = 0; i < str_ary.length; i++) {
-    if (str_ary[i].length == max) {
-      console.log(str_ary[i]);
+    if (str_ary[i].length == max) { 
+      console.log(str_ary[i]); 
     }; 
   };
 };
 
-longest_str();
+// longest_str();
+
+//====================================
+
+// Release 1: Find a Key-Value Match
+
+var dog = {name: 'King', age: 2, isPlottingAssassination: false};
+var cat = {name: 'Queen', age: 2, isPlottingAssassination: true};
+    
+function perfectMatch() {
+  
+  Object.keys(dog && cat).forEach(function (i) {
+    
+    if (dog[i] == cat[i]) {
+      console.log(true);
+    } else { 
+      console.log(false);
+    };
+  });
+};
+
+perfectMatch();
+
+     
+
+
+
+
+
+
+

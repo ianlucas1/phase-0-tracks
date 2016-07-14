@@ -15,19 +15,19 @@ function length_of_array(integer) {
   console.log(rand_word_ary);
   console.log("\n" + "Longest word(s) from the array:");
   longest_str();
-}
+};
 
 function rand_word_generator() {
   for (var i = 0; i < Math.floor(Math.random() * 10 + 1); i++)
     rand_word += letters.charAt(Math.floor(Math.random()*letters.length));
     new newWord(rand_word);
     rand_word = "";
-}
+};
 
 function newWord(rand_word) {
   this.rand_word = rand_word;
   rand_word_ary.push(this.rand_word);
-}
+};
 
 function longest_str() {  
 
@@ -70,10 +70,15 @@ function longest_str() {
 // string (otherwise, don't return it)
 // 10) close the longest_str function
 // 11) call the longest_str function
+// NOTE:  I did not update this pseudocode to reflect the integration of this function
+// into the set of Release 2 functions
 
+// BUSINESS LOGIC FOR RELEASE 0 (NOT INTEGRATED WITH RELEASE 2)
+// Uncomment one of the following three arrays to test Release 0
 // var str_ary = ["White", "Black", "Tawny", "Palomino"];
 // var str_ary = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharaoh"]
 // var str_ary = ["i", "went", "back", "in"];
+
 // var str_length_ary = [];
 
 // function longest_str() {  
@@ -91,6 +96,7 @@ function longest_str() {
 //   };
 // };
 
+// DRIVER CODE FOR RELEASE 0
 // longest_str();
 
 //==========================================================================
@@ -99,7 +105,7 @@ function longest_str() {
 
 var dog = {name: 'King', age: 2, isPlottingAssassination: false};
 var cat = {name: 'Queen', age: 2, isPlottingAssassination: true};
-var true_false_array = []
+var true_false_array = [];
 
 function perfectMatch() {
   
@@ -114,7 +120,7 @@ function perfectMatch() {
 };
 
 perfectMatch();
-console.log("Evaluation of key-value match between two objects:") 
+console.log("Evaluation of key-value match between two objects:");
 console.log(true_false_array.includes(true) + "!");
 
 //==========================================================================
@@ -126,6 +132,12 @@ console.log(true_false_array.includes(true) + "!");
 // input_1: a whole number specified by a user
 // step_1: calls a random word generator integer number of times
 // output_1: no explicit output; it simply calls a random word generator
+// NOTE:  After the whole program was written, I figured out that this function
+// was the best place to also place the printout of the completed rand_word_ary
+// as well as to call the longest string function...it's not 100% clear to me
+// exactly why this is, and there may be a better place to put this stuff, but
+// for now I am satisfied with the functionality of the program
+
 
 // Function ('rand_word_generator') to create randomized words of varying 
 // length and letters
@@ -145,6 +157,7 @@ console.log(true_false_array.includes(true) + "!");
 //           constructor in step 3
 // output_2: a blank rand_word string from step 4
 
+
 // Constructor function that takes the word that has just been created 
 // and pushes it into the array that will store all the randomized 
 // words ('rand_word_ary'); 
@@ -152,10 +165,14 @@ console.log(true_false_array.includes(true) + "!");
 // step_1: push the newWord instance into rand_word_ary
 // output_1: individual newWord instances that are placed into the 
 // rand_word_ary, the number of which was set in length_of_array
+
+// NOTE:  I did not update this pseudocode to reflect the integration of these functions
+// with the Release 0 function, but pseudocode for the function that finds the longest string
+// in an array is in the Release 0 section
   
 //==========================================================================
 
 // DRIVER CODE FOR WORD RANDOMIZER AND LONGEST WORD DETECTOR
 
 // enter an integer for the number of randomized words you want to create
-length_of_array(5) 
+length_of_array(5);

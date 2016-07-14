@@ -61,9 +61,63 @@ function perfectMatch() {
 
 perfectMatch();
 
-     
+//====================================
+
+// Release 2: Generate Random Test Data
 
 
+var rand_iterations = Math.floor(Math.random() * 10 + 1)
+var rand_word = "";
+var chars = "abcdefghijklmnopqrstuvwxyz"
+var rand_word_ary = []
+
+// WITHOUT A CONSTRUCTOR
+
+  // function randomWord() {
+  //   for (var i = 0; i < rand_iterations; i++)
+  //     rand_word += chars.charAt(Math.floor(Math.random() * chars.length));
+  // }
+
+  // function randomWordAry() {
+  //   for (var i = 0; i < rand_iterations; i++)
+  //     rand_word_ary.push(rand_word);
+  // }
+
+  // randomWord()
+  // console.log(rand_word);
+  // randomWordAry()
+  // console.log(rand_word_ary)
+  
+// WITH A CONSTRUCTOR
+
+  // This constructor function pushes the newly generated random word 
+  // into the random word array
+
+  function Word(rand_word) {
+    this.rand_word = rand_word;
+    rand_word_ary.push(this.rand_word)
+  }
+
+  // This function generates a word of random length with random letters
+  // It then creates/activates a new Word instance
+
+  function rand_word_generator() {
+    for (var i = 0; i < Math.floor(Math.random() * 10 + 1); i++)
+      rand_word += chars.charAt(Math.floor(Math.random()*chars.length));
+      new Word(rand_word)
+  }
+
+  // This function calculates a random number of words to generate and calls 
+  // the random word generator that many times
+
+  function rand_num_of_words() {
+    for (var i = 0; i < Math.floor(Math.random() * 10 + 1); i++)
+    rand_word_generator()
+  }
+
+  // this call of the numOfRandomWords function initiates the whole process
+  rand_num_of_words()
+  console.log(rand_word_ary)
 
 
 

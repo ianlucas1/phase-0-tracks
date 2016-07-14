@@ -176,3 +176,4 @@ console.log(true_false_array.includes(true) + "!");
 
 // enter an integer for the number of randomized words you want to create
 length_of_array(5);
+

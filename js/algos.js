@@ -2,14 +2,19 @@
 
 // BUSINESS LOGIC FOR WORD RANDOMIZER (RELEASE 2) AND LONGEST WORD DETECTOR (RELEASE 0)
 
-var letters = "abcdefghijklmnopqrstuvwxyz"
+var letters = "abcdefghijklmnopqrstuvwxyz";
 var rand_word = "";
-var rand_word_ary = []
+var rand_word_ary = [];
 var rand_word_length_ary = [];
 
 function length_of_array(integer) {
-  for (var i = 0; i < integer; i++)
-    rand_word_generator()
+  for (var i = 0; i < integer; i++) {
+    rand_word_generator();
+  };
+  console.log("\n" + "Array of random words:");
+  console.log(rand_word_ary);
+  console.log("\n" + "Longest word(s) from the array:");
+  longest_str();
 }
 
 function rand_word_generator() {
@@ -34,7 +39,7 @@ function longest_str() {
  
   for (var i = 0; i < rand_word_ary.length; i++) {
     if (rand_word_ary[i].length == greatest_length) { 
-      console.log("Longest random word: " + "'" + rand_word_ary[i] + "'"); 
+      console.log("'" + rand_word_ary[i] + "'"); 
     }; 
   };
 };
@@ -109,7 +114,8 @@ function perfectMatch() {
 };
 
 perfectMatch();
-console.log("Evaluation of key-value match between two objects: " + true_false_array.includes(true) + "!" + "\n");
+console.log("Evaluation of key-value match between two objects:") 
+console.log(true_false_array.includes(true) + "!");
 
 //==========================================================================
 
@@ -151,7 +157,5 @@ console.log("Evaluation of key-value match between two objects: " + true_false_a
 
 // DRIVER CODE FOR WORD RANDOMIZER AND LONGEST WORD DETECTOR
 
-length_of_array(5) // enter an integer for the number of randomized words you want to create
-console.log("Array of random words: " + "[" + rand_word_ary + "]" + "\n")
-longest_str();
-
+// enter an integer for the number of randomized words you want to create
+length_of_array(5) 

@@ -3,18 +3,18 @@
 // declare an array of four colors ("blue", for instance, though you're welcome to 
 // get crazy with something like "iridescent blue/green with silver sparkles")
 
-var colors = ["White", "Black", "Grey", "Palomino"]
+var colors = ["Chestnut", "Black", "Buckskin", "Palomino"];
 
 // declare an array of four names that you might give a horse ("Ed" is always a solid 
 // choice to start with)
 
-var names = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharaoh"]
+var names = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharaoh"];
 
 // Write additional code that adds another color to the colors array, and 
 // another horse name to the horses array
 
-colors.push("Bay")
-names.push("Seattle Slew")
+colors.push("Bay");
+names.push("Seattle Slew");
 
 // console.log(colors)
 // console.log(names)
@@ -28,14 +28,14 @@ names.push("Seattle Slew")
 // be something that would work for any number of colors/horses, as long as the two 
 // arrays are the same length.
 
-var horses = {}
+var horses = {};
 
 for (var i = 0; i < names.length; i++) {
   horses[names[i]] = colors[i];
-}
+};
 
-console.log("HORSES OBJECT:")
-console.log(horses)
+console.log("HORSES OBJECT:");
+console.log(horses);
 
 //====================================
 
@@ -54,15 +54,15 @@ function Car(make, zeroToSixty, isSportsCar) {
         console.log("The sound this car makes is 'VROOM!!!'"); 
     } else {
         console.log("The sound this car makes is 'vrrrr'");  
-    }
+    };
   }; 
 
   console.log("");
-  console.log("NEW CAR:")
+  console.log("NEW CAR:");
   console.log("Car make - " + this.make);
   console.log("0-60 time - " + this.zeroToSixty + " seconds");
   console.log("Sports car - " + this.isSportsCar);
-}
+};
 
 var newCar = new Car("Honda", 5, false);
 newCar.sound();

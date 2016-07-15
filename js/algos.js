@@ -153,7 +153,7 @@ function longest_str() {
   
 //==========================================================================
 
-// NOTE:  Test code is arranged this way for convenient viewing in terminal
+// NOTE:  Test code is arranged for convenient viewing in terminal
 
 // RELEASE 0 TEST CODE
 console.log("\n" + "RELEASE 0"); 

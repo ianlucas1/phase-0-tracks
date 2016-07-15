@@ -1,6 +1,36 @@
-// Pseudocode for the following business logic is located in the Release 0 and Release 2 sections
+// BUSINESS LOGIC FOR RELEASE 0: FIND THE LONGEST PHRASE
 
-// BUSINESS LOGIC FOR WORD RANDOMIZER (RELEASE 2) AND LONGEST WORD DETECTOR (RELEASE 0)
+var str_ary = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharaoh"];
+var str_length_ary = [];
+
+function longest_string() {  
+  
+  for (var i = 0; i < str_ary.length; i++) {
+    str_length_ary.push(str_ary[i].length)
+  }
+  
+  var greatest_length = Math.max(...str_length_ary);
+  
+  for (var i = 0; i < str_ary.length; i++) {
+    if (str_ary[i].length == greatest_length) { 
+      console.log("'" + str_ary[i] + "'"); 
+    }
+  }
+}
+
+// BUSINESS LOGIC FOR RELEASE 1: FIND A KEY-VALUE MATCH
+
+var dog = {species: 'dog', name: 'King', age: 2, isPlottingRebellion: false};
+var cat = {species: 'cat', name: 'Queen', age: 2, isPlottingRebellion: true};
+var true_false_array = [];
+
+  Object.keys(dog && cat).forEach(function (i) {
+    if (dog[i] == cat[i]) {
+      true_false_array.push(true);
+    }
+  });
+
+// BUSINESS LOGIC FOR RELEASE 2: GENERATE RANDOM TEST DATA
 
 var letters = "abcdefghijklmnopqrstuvwxyz";
 var rand_word = "";
@@ -10,46 +40,40 @@ var rand_word_length_ary = [];
 function length_of_array(integer) {
   for (var i = 0; i < integer; i++) {
     rand_word_generator();
-  };
-  console.log("\n" + "Array of random words:");
-  console.log(rand_word_ary);
-  console.log("\n" + "Longest word(s) from the array:");
+  }
   longest_str();
-};
+}
 
 function rand_word_generator() {
   for (var i = 0; i < Math.floor(Math.random() * 10 + 1); i++)
     rand_word += letters.charAt(Math.floor(Math.random()*letters.length));
     new newWord(rand_word);
     rand_word = "";
-};
+}
 
 function newWord(rand_word) {
   this.rand_word = rand_word;
   rand_word_ary.push(this.rand_word);
-};
+}
 
 function longest_str() {  
-
+  
   for (var i = 0; i < rand_word_ary.length; i++) {
-  rand_word_length_ary.push(rand_word_ary[i].length)
-  };
-
+    rand_word_length_ary.push(rand_word_ary[i].length);
+  }
+  
   var greatest_length = Math.max(...rand_word_length_ary);
- 
+  
   for (var i = 0; i < rand_word_ary.length; i++) {
     if (rand_word_ary[i].length == greatest_length) { 
       console.log("'" + rand_word_ary[i] + "'"); 
-    }; 
-  };
-};
+    } 
+  }
+}
 
 //==========================================================================
 
-// Release 0: Find the Longest Phrase
-
-// write a function that takes an array of words or phrases 
-// and returns the longest word or phrase in the array
+// RELEASE 0 PSEUDOCODE
 
 // 1) create an array that will store the length of the strings inside 
 // the array named str_length_ary
@@ -68,78 +92,37 @@ function longest_str() {
 // to the length of the longest string identified in the first loop
 // 9) if the length of the string equals the longest string's length, return that 
 // string (otherwise, don't return it)
-// 10) close the longest_str function
-// 11) call the longest_str function
-// NOTE:  I did not update this pseudocode to reflect the integration of this function
-// into the set of Release 2 functions
-
-// BUSINESS LOGIC FOR RELEASE 0 (NOT INTEGRATED WITH RELEASE 2)
-// Uncomment one of the following three arrays to test Release 0
-// var str_ary = ["White", "Black", "Tawny", "Palomino"];
-// var str_ary = ["Sir Barton", "Gallant Fox", "War Admiral", "American Pharaoh"]
-// var str_ary = ["i", "went", "back", "in"];
-
-// var str_length_ary = [];
-
-// function longest_str() {  
-
-//   for (var i = 0; i < str_ary.length; i++) {
-//   str_length_ary.push(str_ary[i].length)
-//   };
-
-//   var greatest_length = Math.max(...str_length_ary);
- 
-//   for (var i = 0; i < str_ary.length; i++) {
-//     if (str_ary[i].length == greatest_length) { 
-//       console.log(str_ary[i]); 
-//     }; 
-//   };
-// };
-
-// DRIVER CODE FOR RELEASE 0
-// longest_str();
+// 10) close the longest_string function
+// 11) call the longest_string function
+// NOTE:  I did not update this pseudocode to reflect the integration of this 
+// function into the set of Release 2 functions
 
 //==========================================================================
 
-// Release 1: Find a Key-Value Match
+// RELEASE 1 PSEUDOCODE
 
-var dog = {name: 'King', age: 2, isPlottingAssassination: false};
-var cat = {name: 'Queen', age: 2, isPlottingAssassination: true};
-var true_false_array = [];
-
-function perfectMatch() {
-  
-  Object.keys(dog && cat).forEach(function (i) {
-    
-    if (dog[i] == cat[i]) {
-      true_false_array.push(true);
-    } else {
-      true_false_array.push(false);
-    };
-  });
-};
-
-perfectMatch();
-console.log("Evaluation of key-value match between two objects:");
-console.log(true_false_array.includes(true) + "!");
+// 1) Create an array that will store any true evaluations of the values in two 
+//    objects
+// 2) Create a function that will iterate through the objects and compare the 
+//    values, pushing 'true' for any matches into the array created in step 1
+// 3) Evaluate whether the resulting array includes 'true'; if so, print 
+//    'true'; if not, 'false'
+// NOTE: step 3 logic is included in the test area at the bottom of this file 
 
 //==========================================================================
 
-// Release 2: Generate Random Test Data
+// RELEASE 2 PSEUDOCODE
 
-// Function ('length_of_array') that takes input for how many elements 
+// length_of_array function that takes input for how many elements 
 // to put into an array ('rand_word_ary')
 // input_1: a whole number specified by a user
 // step_1: calls a random word generator integer number of times
+// step_2: calls the longest string function after all the random words
+//         have been generated and added into the rand_word_ary
 // output_1: no explicit output; it simply calls a random word generator
-// NOTE:  After the whole program was written, I figured out that this function
-// was the best place to also place the printout of the completed rand_word_ary
-// as well as to call the longest string function...it's not 100% clear to me
-// exactly why this is, and there may be a better place to put this stuff, but
-// for now I am satisfied with the functionality of the program
+//           and the longest string function
 
-
-// Function ('rand_word_generator') to create randomized words of varying 
+// rand_word_generator function to create randomized words of varying 
 // length and letters
 // input_1: a call to run from the 'length_of_array' function
 // input_2: a random length for the word, generated internally
@@ -157,8 +140,7 @@ console.log(true_false_array.includes(true) + "!");
 //           constructor in step 3
 // output_2: a blank rand_word string from step 4
 
-
-// Constructor function that takes the word that has just been created 
+// newWord constructor function that takes the word that has just been created 
 // and pushes it into the array that will store all the randomized 
 // words ('rand_word_ary'); 
 // input_1: a randomized word from rand_word_generator
@@ -166,13 +148,28 @@ console.log(true_false_array.includes(true) + "!");
 // output_1: individual newWord instances that are placed into the 
 // rand_word_ary, the number of which was set in length_of_array
 
-// NOTE:  I did not update this pseudocode to reflect the integration of these functions
-// with the Release 0 function, but pseudocode for the function that finds the longest string
-// in an array is in the Release 0 section
+// NOTE:  I did not update this pseudocode to reflect the integration of these 
+// functions with the Release 0 function
   
 //==========================================================================
 
-// DRIVER CODE FOR WORD RANDOMIZER AND LONGEST WORD DETECTOR
+// NOTE:  Test code is arranged this way for convenient viewing in terminal
 
-// enter an integer for the number of randomized words you want to create
-length_of_array(5);
+// RELEASE 0 TEST CODE
+console.log("\n" + "RELEASE 0"); 
+console.log("Longest word from the array shown below:");
+longest_string();
+console.log(str_ary);
+
+// RELEASE 1 TEST CODE
+console.log("\n" + "RELEASE 1"); 
+console.log("Evaluation of any matches between the two objects shown below:");
+console.log("Das ist " + true_false_array.includes(true) + "!");
+console.log(dog);
+console.log(cat);
+
+// RELEASE 2 TEST CODE
+console.log("\n" + "RELEASE 2"); 
+console.log("Longest word(s) from the random word array shown below:");
+length_of_array(5); // enter number of randomized words to create
+console.log(rand_word_ary);

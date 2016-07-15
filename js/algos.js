@@ -22,32 +22,13 @@ function longest_string() {
 
 var dog = {species: 'dog', name: 'King', age: 2, isPlottingRebellion: false};
 var cat = {species: 'cat', name: 'Queen', age: 2, isPlottingRebellion: true};
-var dog_key_ary = [];
-var cat_key_ary = [];
-var dog_value_ary = [];
-var cat_value_ary = [];
-var true_false_array = [];
+var match_array = [];
 
-for(var key in dog) {
-    dog_key_ary.push(key);
-}
-
-for(var key in cat) {
-    cat_key_ary.push(key);
-}
-
-for(var value in dog) {
-    dog_value_ary.push(dog[value]);
-}
-
-for(var value in cat) {
-    cat_value_ary.push(cat[value]);
-}
-
-for (var i = 0; i < dog_key_ary.length; i++)
-    if (dog_key_ary[i] == cat_key_ary[i] && dog_value_ary[i] == cat_value_ary[i]) {
-      true_false_array.push(true);
-}
+Object.keys(dog && cat).forEach(function (i) {
+  if (dog[i] == cat[i]) {
+    match_array.push(true);
+  }
+});
 
 // BUSINESS LOGIC FOR RELEASE 2: GENERATE RANDOM TEST DATA
 
@@ -65,7 +46,7 @@ function length_of_array(integer) {
 
 function rand_word_generator() {
   for (var i = 0; i < Math.floor(Math.random() * 10 + 1); i++)
-    rand_word += letters.charAt(Math.floor(Math.random()*letters.length));
+    rand_word += letters.charAt(Math.floor(Math.random() * letters.length));
     new newWord(rand_word);
     rand_word = "";
 }
@@ -90,96 +71,7 @@ function longest_str() {
   }
 }
 
-//==========================================================================
-
-// RELEASE 0 PSEUDOCODE
-
-// 1) create an array that will store the length of the strings inside 
-// the array named str_length_ary
-// 2) create a function named longest_str to call an array of strings
-// 3) create a for loop inside the longest_str function
-// create a counter variable inside the loop that corresponds to the
-// index positions inside the array of strings
-// 4) loop through each string in the array until the counter has reached 
-// one less than the length of the array
-// 5) in each iteration, push the number corresponding to the length of each 
-// string into the array that stores the string lengths
-// 6) use the JavaScript Math object to find the highest number in str_length_ary
-// 7) create a second loop in the longest_str function with the same counter 
-// and termination condition as the prior loop
-// 8) inside the loop, iteratively compare the length of each string in the array 
-// to the length of the longest string identified in the first loop
-// 9) if the length of the string equals the longest string's length, return that 
-// string (otherwise, don't return it)
-// 10) close the longest_string function
-// 11) call the longest_string function
-// NOTE:  I did not update this pseudocode to reflect the integration of this 
-// function into the set of Release 2 functions
-
-//==========================================================================
-
-// RELEASE 1 PSEUDOCODE
-
-// 1) Create an array that will store any true evaluations of the values in two 
-//    objects
-// 2) Create two key (value) arrays that will store keys (values) extracted from 
-//    the objects
-// 3) Create for-in functions to extract the keys and values from the objects 
-//    and push them into their respective arrays
-// 4) Create a function that will iterate through the key and value arrays, and
-//    when both the key arrays and value arrays match, push 'true' into the 
-//    array created in step 1
-// 5) Evaluate whether the resulting array includes 'true'; if so, print 
-//    'true'; if not, 'false'
-// NOTE: this process assumes that the key-value pairs in both objects are in
-//       the same order
-// NOTE: step 3 logic is included in the test area at the bottom of this file 
-
-//==========================================================================
-
-// RELEASE 2 PSEUDOCODE
-
-// length_of_array function that takes input for how many elements 
-// to put into an array ('rand_word_ary')
-// input_1: a whole number specified by a user
-// step_1: calls a random word generator integer number of times
-// step_2: calls the longest string function after all the random words
-//         have been generated and added into the rand_word_ary
-// output_1: no explicit output; it simply calls a random word generator
-//           and the longest string function
-
-// rand_word_generator function to create randomized words of varying 
-// length and letters
-// input_1: a call to run from the 'length_of_array' function
-// input_2: a random length for the word, generated internally
-// input_3: a set of letters to draw from (the 'letters' variable)
-// input_4: a blank random word string variable ('rand_word') to which  
-//          randomly drawn letters can be added
-// step_1: randomly assign a word length; 
-// step_2: randomly draw from letters variable; 
-// step_3: call a newWord constructor function that takes the word that has 
-//         just been created and pushes it into the array that will store 
-//         all the randomized words; 
-// step_4: reset the random word string variable ('rand_word') back to being  
-//         blank so the next word to be created can start fresh
-// output_1: the randomized word ('rand_word') that is sent to the newWord 
-//           constructor in step 3
-// output_2: a blank rand_word string from step 4
-
-// newWord constructor function that takes the word that has just been created 
-// and pushes it into the array that will store all the randomized 
-// words ('rand_word_ary'); 
-// input_1: a randomized word from rand_word_generator
-// step_1: push the newWord instance into rand_word_ary
-// output_1: individual newWord instances that are placed into the 
-// rand_word_ary, the number of which was set in length_of_array
-
-// NOTE:  I did not update this pseudocode to reflect the integration of these 
-// functions with the Release 0 function
-  
-//==========================================================================
-
-// NOTE:  Test code is arranged for convenient viewing in terminal
+// NOTE:  The following driver code is arranged for convenient viewing in terminal
 
 // RELEASE 0 TEST CODE
 console.log("\n" + "RELEASE 0"); 
@@ -190,12 +82,135 @@ console.log(str_ary);
 // RELEASE 1 TEST CODE
 console.log("\n" + "RELEASE 1"); 
 console.log("Evaluation of any matches between the two objects shown below:");
-console.log("Das ist " + true_false_array.includes(true) + "!");
-console.log(dog);
-console.log(cat);
+console.log("Das ist " + match_array.includes(true) + "!");
 
 // RELEASE 2 TEST CODE
 console.log("\n" + "RELEASE 2"); 
 console.log("Longest word(s) from the random word array shown below:");
 length_of_array(5); // enter number of randomized words to create
 console.log(rand_word_ary);
+
+//==========================================================================
+
+// RELEASE 0 PSEUDOCODE
+
+// 1) Create an array that will store the length of the strings inside 
+//    the array named str_length_ary
+
+// 2) Create a function named longest_str to call an array of strings
+
+// 3) Create a for loop inside the longest_str function with a counter variable 
+//    that corresponds to the index positions inside the array of strings
+
+// 4) Loop through each string in the array until the counter has reached 
+//    one less than the length of the array
+
+// 5) In each iteration, push the number corresponding to the length of  
+//    each string into the array that stores the string lengths
+
+// 6) Use the JavaScript Math object to find the highest number in 
+//    str_length_ary
+
+// 7) Create a second loop in the longest_str function with the same counter 
+//    and termination condition as the prior loop
+
+// 8) Inside the loop, iteratively compare the length of each string in the  
+//    array to the length of the longest string identified in the first loop
+
+// 9) If the length of the string equals the longest string's length, return  
+//    that string (otherwise, don't return it)
+
+// 10) Close the longest_string function
+
+// 11) Call the longest_string function
+
+// NOTE: I did not update this pseudocode to reflect the integration of  
+//       this function into the set of Release 2 functions
+
+// NOTE: An alternative solution that does not use the Math Object Method, 
+//       Math.max(), is available here: https://repl.it/CcVw/0
+
+//==========================================================================
+
+// RELEASE 1 PSEUDOCODE
+
+// 1) Create an array that will store any true evaluations of the values in two 
+//    objects
+
+// 2) Create a function that will iterate through the objects and compare the 
+//    values, pushing 'true' for any matches into the array created in step 1
+
+// 3) Evaluate whether the resulting array includes 'true'; if so, print 
+//    'true'; if not, 'false' (logic is included in the test area at the bottom 
+//    of this file)
+
+// NOTE: I figured out how to accomplish this without using Object.keys(),
+//       but I prefer this (far more) concise solution; the alternative 
+//       solution is available here:  https://repl.it/CcVf/0
+
+// NOTE: This process assumes that the key-value pairs in both objects are in
+//       the same order
+
+//==========================================================================
+
+// RELEASE 2 PSEUDOCODE
+
+// FUNCTION 1: length_of_array takes input for how many elements 
+//             to put into an array ('rand_word_ary')
+
+// Input_1: A whole number specified by a user
+
+// Step_1: Calls a random word generator integer number of times
+
+// Step_2: After all the random words are generated and pushed into the 
+//         rand_word_ary, this function calls the longest string function  
+
+// Output_1: One or more messages calling the random word generator 
+
+// Output_2: One message calling the longest string function          
+
+//--------------------------------------------------------------------------
+
+// FUNCTION 2: rand_word_generator creates randomized words of varying 
+//             length and letters
+
+// Input_1: A call to run from the 'length_of_array' function
+
+// Input_2: A random length for the word, generated internally
+
+// Input_3: A set of letters to draw from (the 'letters' variable)
+
+// Input_4: A blank random word string variable ('rand_word') to which  
+//          randomly drawn letters can be added
+
+// Step_1: Randomly assign a word length; 
+
+// Step_2: Randomly draw from letters variable; 
+
+// Step_3: Call a newWord constructor function that takes the word that has 
+//         just been created and pushes it into the array that will store 
+//         all the randomized words; 
+
+// Step_4: Reset the random word string variable ('rand_word') back to being  
+//         Blank so the next word to be created can start fresh
+
+// Output_1: The randomized word ('rand_word') that is sent to the newWord 
+//           constructor in step 3
+
+// NOTE: All the apparent input dependencies and steps makes me wonder if 
+//       this function could be broken out into smaller functions
+
+//--------------------------------------------------------------------------
+
+// FUNCTION 3: newWord constructor takes the just-created word and pushes it  
+//             into the array that will store all the randomized words
+
+// Input_1: A randomized word from rand_word_generator
+
+// Step_1: Push the newWord instance into rand_word_ary
+
+// Output_1: Individual newWord instances that are placed into the 
+//           rand_word_ary, the number of which was set in length_of_array
+
+// NOTE:  I did not update this pseudocode to reflect the integration of these 
+//        functions with the Release 0 function that finds the longest string

@@ -22,13 +22,32 @@ function longest_string() {
 
 var dog = {species: 'dog', name: 'King', age: 2, isPlottingRebellion: false};
 var cat = {species: 'cat', name: 'Queen', age: 2, isPlottingRebellion: true};
+var dog_key_ary = [];
+var cat_key_ary = [];
+var dog_value_ary = [];
+var cat_value_ary = [];
 var true_false_array = [];
 
-  Object.keys(dog && cat).forEach(function (i) {
-    if (dog[i] == cat[i]) {
+for(var key in dog) {
+    dog_key_ary.push(key);
+}
+
+for(var key in cat) {
+    cat_key_ary.push(key);
+}
+
+for(var value in dog) {
+    dog_value_ary.push(dog[value]);
+}
+
+for(var value in cat) {
+    cat_value_ary.push(cat[value]);
+}
+
+for (var i = 0; i < dog_key_ary.length; i++)
+    if (dog_key_ary[i] == cat_key_ary[i] && dog_value_ary[i] == cat_value_ary[i]) {
       true_false_array.push(true);
-    }
-  });
+}
 
 // BUSINESS LOGIC FOR RELEASE 2: GENERATE RANDOM TEST DATA
 
@@ -103,10 +122,17 @@ function longest_str() {
 
 // 1) Create an array that will store any true evaluations of the values in two 
 //    objects
-// 2) Create a function that will iterate through the objects and compare the 
-//    values, pushing 'true' for any matches into the array created in step 1
-// 3) Evaluate whether the resulting array includes 'true'; if so, print 
+// 2) Create two key (value) arrays that will store keys (values) extracted from 
+//    the objects
+// 3) Create for-in functions to extract the keys and values from the objects 
+//    and push them into their respective arrays
+// 4) Create a function that will iterate through the key and value arrays, and
+//    when both the key arrays and value arrays match, push 'true' into the 
+//    array created in step 1
+// 5) Evaluate whether the resulting array includes 'true'; if so, print 
 //    'true'; if not, 'false'
+// NOTE: this process assumes that the key-value pairs in both objects are in
+//       the same order
 // NOTE: step 3 logic is included in the test area at the bottom of this file 
 
 //==========================================================================

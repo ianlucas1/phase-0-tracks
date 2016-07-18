@@ -1,3 +1,5 @@
+Release 2: Execute SQL Queries
+
 1) Display the information in one table (either table is fine).
 
   SELECT * FROM investments;
@@ -44,3 +46,21 @@
   USMV|Large Cap
   IWO|Small Cap
   SLYG|Small Cap
+
+Release 3: Research on Your Own
+
+Try a few different joins in your database, and record the commands and the output
+
+  SELECT etf_symbol, size FROM size_categories CROSS JOIN investments ON (investments.size_id = 1 AND size_categories.id = 1);
+  IWF|Large Cap
+  USMV|Large Cap
+
+  SELECT etf_symbol, size FROM investments INNER JOIN size_categories ON (investments.size_id = 1 AND size_categories.id = 1);
+  IWF|Large Cap
+  USMV|Large Cap
+
+  SELECT etf_symbol, size FROM investments LEFT OUTER JOIN size_categories ON (investments.size_id = 1 AND size_categories.id = 1);
+  IWF|Large Cap
+  USMV|Large Cap
+  IWO|
+  SLYG|

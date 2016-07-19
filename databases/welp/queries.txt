@@ -1,0 +1,37 @@
+8.4 Mandatory Pairing: Many-to-Many Relationships
+
+Release 2: View a Many-to-Many Relationship
+
+2) You've joined two tables before. How do you join three?
+
+  SELECT * FROM reviews, businesses, users WHERE reviews.business_id = businesses.id AND reviews.user_id = users.id;
+  
+  1|4.7|So peaceful|1|2|1|Grundy Hollow Wedding Chapel|2|Mandy|Kaling
+  2|3.6|Musty|1|7|1|Grundy Hollow Wedding Chapel|7|Denzel|George
+  3|4.7|A moving experience|1|5|1|Grundy Hollow Wedding Chapel|5|Holly|Berry
+  4|4.6|Strenuous workout!|4|1|4|Lotus Yoga|1|Bradford|Pitt
+  5|4.9|Totally delish|6|4|6|Sushi World|4|Steven|Wonder
+  6|4.5|Surprisingly fresh|6|6|6|Sushi World|6|Meryl|Streepman
+
+3) There are some repetitive columns if we choose to view all fields. Choose instead to just view the user's names, the business name, the star rating, and the comment.
+
+  SELECT users.first_name, users.last_name, businesses.name, reviews.stars, reviews.comment FROM reviews, businesses, users WHERE reviews.business_id = businesses.id AND reviews.user_id = users.id;
+  
+  Mandy|Kaling|Grundy Hollow Wedding Chapel|4.7|So peaceful
+  Denzel|George|Grundy Hollow Wedding Chapel|3.6|Musty
+  Holly|Berry|Grundy Hollow Wedding Chapel|4.7|A moving experience
+  Bradford|Pitt|Lotus Yoga|4.6|Strenuous workout!
+  Steven|Wonder|Sushi World|4.9|Totally delish
+  Meryl|Streepman|Sushi World|4.5|Surprisingly fresh
+
+
+4) How do you view the data of all three tables for just one particular business?
+
+  SELECT users.first_name, users.last_name, businesses.name, reviews.stars, reviews.comment FROM reviews, businesses, users WHERE reviews.business_id = businesses.id AND reviews.user_id = users.id AND businesses.name = "Sushi World";
+  
+  Steven|Wonder|Sushi World|4.9|Totally delish
+  Meryl|Streepman|Sushi World|4.5|Surprisingly fresh
+
+
+
+  

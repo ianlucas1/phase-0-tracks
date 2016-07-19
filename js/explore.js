@@ -16,10 +16,10 @@ function reverse() {
   // inside the for loop, iteratively modify the reversed string variable by adding the character that 
   // corresponds to the counter's index position
    str_rev += str[i];
-  };
+  }
 
   // when the loop has ended, print the reversed string variable
-  console.log("The original string is '" + str + "'.");
+  console.log("The original string was '" + str + "'.");
   console.log("The reversed string is '" + str_rev + "'.");
 }
 
@@ -32,8 +32,8 @@ reverse();
 // a test to see if the reversed string does not equal the input variable...I admit that this is on the silly side
   if (str_rev != str) {
     console.log("Thankfully, the reversed string, '" + str_rev + "', does not equal the original string, '" + str + "'.");
-    return true
+    true;
   } else {
     console.log("Unfortunately, the string you wanted to reverse, '" + str_rev + "', still equals the original string, '" + str + "'.");
-    return false
+    false;
   }

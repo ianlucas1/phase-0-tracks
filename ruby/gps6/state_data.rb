@@ -55,3 +55,7 @@ STATE_DATA = {
   "Wisconsin" => {population_density: 105.2, population: 5726398},
   "Wyoming" => {population_density: 5.851, population: 576412}
 }
+
+STATE_DATA.each do |key, value|
+  p "key is #{key}, value is #{value}"
+end

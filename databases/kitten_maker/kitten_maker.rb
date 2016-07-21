@@ -2,11 +2,21 @@
 
 # talk about Object Relational Mapping (ORM)
 
+# www.rubydoc.info/githug/luislavena/sqlite3-ruby
+
 # require gems
 require 'sqlite3'
 require 'faker'
 
 # create SQLite3 database
+# documentation: http://www.rubydoc.info/github/luislavena/sqlite3-ruby/SQLite3/Database
+# SQLite3::Database.new( "data.db" ) do |db|
+#   db.execute( "select * from table" ) do |row|
+#     p row
+#   end
+# end
+
+
 db = SQLite3::Database.new("kittens.db")
 db.results_as_hash = true
 
@@ -32,13 +42,14 @@ def create_kitten(db, name, age)
   db.execute("INSERT INTO kittens (name, age) VALUES (?, ?)", [name, age])
 end
 
-10000.times do
-  create_kitten(db, Faker::Name.name, 0)
-end
+# 10000.times do
+#   create_kitten(db, Faker::Name.name, 0)
+# end
 
-# explore ORM by retrieving data
+# # explore ORM by retrieving data
 # kittens = db.execute("SELECT * FROM kittens")
 # kittens.each do |kitten|
 #  puts "#{kitten['name']} is #{kitten['age']}"
 # end
 
+puts db 

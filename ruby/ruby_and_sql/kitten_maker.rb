@@ -18,23 +18,24 @@ SQL
 db.execute(create_table_cmd)
 
 # test: add a kitten
-db.execute("INSERT INTO kitten_table (name, age) VALUES ('Tiger', 1)")
-db.execute("SELECT * FROM kitten_table")
+# db.execute("INSERT INTO kitten_table (name, age) VALUES ('Tiger', 1)")
+# db.execute("SELECT * FROM kitten_table")
 
 # method to add many kittens
-# def create_kitten(db, name, age)
-#   db.execute("INSERT INTO kitten_table (name, age) VALUES (?, ?)", [name, age])
-# end
+def create_kitten(db, name, age)
+  db.execute("INSERT INTO kitten_table (name, age) VALUES (?, ?)", [name, age])
+end
 
-# 10000.times do
-#   create_kitten(db, Faker::Name.name, 0)
-# end
+10.times do
+  create_kitten(db, Faker::Name.name, 0)
+end
 
 # # # explore ORM by retrieving data
-# kittens = db.execute("SELECT * FROM kitten_table")
-# kittens.each do |kitten|
-#  puts "#{kitten['name']} is #{kitten['age']}"
-# end
+kittens = db.execute("SELECT * FROM kitten_table")
+
+kittens.each do |kitten|
+ puts "#{kitten['name']} is #{kitten['age']}"
+end
 
 
 

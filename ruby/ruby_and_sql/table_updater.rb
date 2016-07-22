@@ -15,48 +15,103 @@ class Simulation
 end
 
 simulations = []
+# ret_sim_ary = []
 
 1.upto(2) { |simulation|
   simulations << Simulation.new("#{simulation}")
 }
 
 simulations.each do |simulation|
-  p simulation.vol_sims
+  p simulation.ret_sims
 end
 
-p simulations
+create_blank_table = <<-SQL
+  CREATE TABLE IF NOT EXISTS sims_table(
+    obs INTEGER PRIMARY KEY
+  )
+SQL
 
-
-# volatility_quintile_ary = %w[ 1 2 3 4 5 ]
+db.execute(create_blank_table)
 
 simulations.each do |simulation|
   
+  # db.execute("ALTER TABLE sims_table ADD sim_#{simulation.simulation_number} INT")
+
+  # ret_sim_ary << simulation.ret_sims
+
   create_vol_prob_table = <<-SQL
   CREATE TABLE IF NOT EXISTS Sim_#{simulation.simulation_number}(
     obs INTEGER PRIMARY KEY,
-    q1_column INT
+    sim_#{simulation.simulation_number} INT
     )
   SQL
 
   db.execute(create_vol_prob_table)
 
-  def add_quintile_rows(db, q1_obs, i)
-    db.execute("INSERT INTO Sim_#{i} (q1_column) VALUES (?)", [q1_obs])
+  def add_sim(db, observation, i)
+    db.execute("INSERT INTO Sim_#{i} (sim_#{i}) VALUES (?)", [observation])
   end
 
-  volatility_quintile_ary = simulation.vol_sims
+  # def add_sim2(db, observation, i)
+  #   db.execute("INSERT INTO sims_table (sim_#{i}) VALUES (?) WHERE sims_table.obs = #{i}", [observation])
+  # end
 
-  volatility_quintile_ary.each do |q1_obs|
-    add_quintile_rows(db, q1_obs, simulation.simulation_number)
+  volatility_quintile_ary = simulation.ret_sims
+
+  volatility_quintile_ary.each do |observation|
+    add_sim(db, observation, simulation.simulation_number)
+    # add_sim2(db, observation, simulation.simulation_number)
   end
 
   volatility_quintile_observations = db.execute("SELECT * FROM Sim_#{simulation.simulation_number}")
 
-  volatility_quintile_observations.each do |row|
-   puts "#{row['q1_column']}"
-  end
+  # volatility_quintile_observations.each do |row, i|
+  #  puts "#{row['sim_#{simulation.simulation_number}']}"
+  # end
+
+  db.execute("CREATE TABLE combo_table_#{simulation.simulation_number} AS SELECT sims_table.obs, Sim_#{simulation.simulation_number}.sim_#{simulation.simulation_number} FROM sims_table, Sim_#{simulation.simulation_number} WHERE sims_table.obs = Sim_#{simulation.simulation_number}.obs;")
 
 end
+
+ 
+
+  # merged_sims = db.execute("CREATE TABLE joint_table AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2 FROM Sim_1, Sim_2 WHERE Sim_1.obs = Sim_2.obs;")
+
+# p ret_sim_ary
+
+# ret_sim_ary.each do |simulation|
+
+#   def add_sim(db, observation, i)
+#     db.execute("INSERT INTO Sim_#{i} (sim_#{i}) VALUES (?)", [observation])
+#   end
+
+#   add_sim(db, observation, simulation.simulation_number)
+  
+
+
+
+
+# joined_sims = <<-SQL
+#   CREATE VIEW
+#   db.joined_sims
+#   AS
+#   SELECT
+#     Sim_1.id, 
+#     Sim_1.sim_1,
+#     Sim_2.sim_2
+#   FROM
+#     Sim_1
+#   LEFT JOIN
+#     Sim_2
+# SQL
+
+# joined_sims_view = db.execute(joined_sims)
+
+# puts joined_sims
+# puts joined_sims_view
+
+
+# volatility_quintile_ary = %w[ 1 2 3 4 5 ]
 
 # create_vol_prob_table = <<-SQL
 #   CREATE TABLE IF NOT EXISTS q_table(
@@ -69,13 +124,13 @@ end
 # db.execute(create_vol_prob_table)
 
 # # method to insert the rows of five columns
-# def add_quintile_rows(db, q1_obs)
-#   db.execute("INSERT INTO q_table (q1_column) VALUES (?)", [q1_obs])
+# def add_quintile_rows(db, observation)
+#   db.execute("INSERT INTO q_table (q1_column) VALUES (?)", [observation])
 # end
 
 # # loop to iteratively insert each row in the nested array
-# volatility_quintile_ary.each do |q1_obs|
-#   add_quintile_rows(db, q1_obs)
+# volatility_quintile_ary.each do |observation|
+#   add_quintile_rows(db, observation)
 # end
 
 # # variable to execute SQL query of the data points in each cell of each row
@@ -269,8 +324,20 @@ end
 # insert into user_with_email id, name, email values (2, "Bruce", "Bruce - at - springsteen.com");
 # select id, name, email from user_with_email;
 
+# ALMOST BUT NOT QUITE PROPER MERGE
 
 
+# simulations.each do |simulation|
+# end
 
+  # def add_quintile_rows(db, observation, i)
+  #   db.execute("INSERT INTO sims_table (Sim_#{i}) VALUES (?)", [observation])
+  # end
+
+  # volatility_quintile_ary = simulation.vol_sims
+
+  # volatility_quintile_ary.each do |observation|
+  #   add_quintile_rows(db, observation, simulation.simulation_number)
+  # end
 
 

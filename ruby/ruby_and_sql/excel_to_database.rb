@@ -110,7 +110,7 @@ db = SQLite3::Database.new("Volatility_Quintile_Probabilities.db")
 db.results_as_hash = true
 
 # string that serves as a command to create a SQL table
-create_vol_prob_table_cmd = <<-SQL
+create_vol_prob_table = <<-SQL
   CREATE TABLE IF NOT EXISTS q_table(
     obs INTEGER PRIMARY KEY,
     q1_column INT,
@@ -123,7 +123,7 @@ SQL
 
 # create a table of volatility quintiles with following-period quintile 
 # observation (if it's not there already)
-db.execute(create_vol_prob_table_cmd)
+db.execute(create_vol_prob_table)
 
 # method to add quintile column
 def add_quintile_rows(db, q1_obs, q2_obs, q3_obs, q4_obs, q5_obs)
@@ -247,11 +247,11 @@ volatility_return_ary = [
 create_ret_table = <<-SQL
   CREATE TABLE IF NOT EXISTS ret_table(
     obs INTEGER PRIMARY KEY,
-    q1_column INT,
-    q2_column INT,
-    q3_column INT,
-    q4_column INT,
-    q5_column INT
+    q1_column REAL,
+    q2_column REAL,
+    q3_column REAL,
+    q4_column REAL,
+    q5_column REAL
   )
 SQL
 

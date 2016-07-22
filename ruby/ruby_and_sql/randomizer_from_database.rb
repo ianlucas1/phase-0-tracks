@@ -5,35 +5,36 @@ require 'sqlite3'
 db = SQLite3::Database.new("Volatility_Quintile_Probabilities.db")
 db.results_as_hash = true
 
-create_vol_sim_table = <<-SQL
-  CREATE TABLE IF NOT EXISTS vol_sim_table(
-    sim_obs INTEGER PRIMARY KEY,
-    sim_column INT,
-  )
-SQL
-db.execute(create_vol_sim_table)
+# creates a data table with one column to hold results
+# of the first simulation
+# create_vol_sim_table = <<-SQL
+#   CREATE TABLE IF NOT EXISTS vol_sim_table(
+#     sim_obs INTEGER PRIMARY KEY,
+#     sim_column INT,
+#   )
+# SQL
+# db.execute(create_vol_sim_table)
 
 # ALTER TABLE table_name ADD column_name datatype
 # may need to add ';'
-alter_vol_sim_table = <<-SQL
-  ALTER TABLE vol_sim_table
-    ADD sim_column INT
-SQL
+# alter_vol_sim_table = <<-SQL
+#   ALTER TABLE vol_sim_table
+#     ADD sim_column INT
+# SQL
+# db.execute(alter_vol_sim_table)
 
-db.execute(alter_vol_sim_table)
+# # method to add first column of simulated volatility quintiles
+# def add_vol_quintile_row_1(db, sample)
+#   db.execute("INSERT INTO vol_sim_table (sim_column) VALUES (?)", [sample])
+# end
 
-# method to add first column of simulated volatility quintiles
-def add_vol_quintile_row_1(db, sample)
-  db.execute("INSERT INTO vol_sim_table (sim_column) VALUES (?)", [sample])
-end
+# def add_vol_quintile_row_n(db, sample)
+#   db.execute("INSERT INTO vol_sim_table (sim_column) VALUES (?)", [sample])
+# end
 
-def add_vol_quintile_row_n(db, sample)
-  db.execute("INSERT INTO vol_sim_table (sim_column) VALUES (?)", [sample])
-end
-
-volatility_quintile_ary.each do |q1_obs, q2_obs, q3_obs, q4_obs, q5_obs|
-  add_quintile_rows(db, q1_obs, q2_obs, q3_obs, q4_obs, q5_obs)
-end
+# volatility_quintile_ary.each do |q1_obs, q2_obs, q3_obs, q4_obs, q5_obs|
+#   add_quintile_rows(db, q1_obs, q2_obs, q3_obs, q4_obs, q5_obs)
+# end
 
 
 # create variable to access each item in the database table called 'q_table'
@@ -71,7 +72,7 @@ Vol_Quintile_Ret_Observations.each do |row|
  rq_5_ary  << row['q5_column']
 end
 
-# uncomment the following p commands to see the array data
+# test print of the array data
 # p vq_1_ary
 # p vq_2_ary
 # p vq_3_ary
@@ -100,7 +101,7 @@ class Simulation
 end
 
 # for now, create an array to store each simulation
-### it might be better to store this info in a data table ###
+# it might be better to store this info in a data table
 simulations = []
 
 # initiate any number of simulations

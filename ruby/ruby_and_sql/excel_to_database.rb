@@ -106,10 +106,12 @@ volatility_quintile_ary = [
 
 # p Volatility_Quintile_Probability_Ary
 
+# create new database and a database object whose internal elements are hashes
 db = SQLite3::Database.new("Volatility_Quintile_Probabilities.db")
 db.results_as_hash = true
 
-# string that serves as a command to create a SQL table
+# string that serves as a command to create a SQL table to
+# store the five columns of data in the above nested array
 create_vol_prob_table = <<-SQL
   CREATE TABLE IF NOT EXISTS q_table(
     obs INTEGER PRIMARY KEY,
@@ -121,30 +123,35 @@ create_vol_prob_table = <<-SQL
   )
 SQL
 
-# create a table of volatility quintiles with following-period quintile 
-# observation (if it's not there already)
+# create a table that will store the five columns 
 db.execute(create_vol_prob_table)
 
-# method to add quintile column
+# method to insert the rows of five columns
 def add_quintile_rows(db, q1_obs, q2_obs, q3_obs, q4_obs, q5_obs)
   db.execute("INSERT INTO q_table (q1_column, q2_column, q3_column, q4_column, q5_column) VALUES (?, ?, ?, ?, ?)", [q1_obs, q2_obs, q3_obs, q4_obs, q5_obs])
 end
 
+# loop to iteratively insert each row in the nested array
 volatility_quintile_ary.each do |q1_obs, q2_obs, q3_obs, q4_obs, q5_obs|
   add_quintile_rows(db, q1_obs, q2_obs, q3_obs, q4_obs, q5_obs)
 end
 
+# variable to execute SQL query of the data points in each cell of each row
 Volatility_Quintile_Observations = db.execute("SELECT * FROM q_table")
 
+# test print
 # p Volatility_Quintile_Observations
 
+# loop to print out the data points in each row of the table
 Volatility_Quintile_Observations.each do |row|
  puts "#{row['q1_column']} | #{row['q2_column']} | #{row['q3_column']} | #{row['q4_column']} | #{row['q5_column']}"
 end
 
+# everything below repeats the process above (I know, not DRY...) for a
+# data table of returns 
 volatility_return_ary = [
-%w[ -6.5% -14.3%  -11.3%  -17.9%  -19.9%  ],
-%w[ -6.5% -9.3% -10.3%  -9.6% -10.9%  ],
+%w[ -6.5% -14.3% -11.3% -17.9% -19.9% ],
+%w[ -6.5% -9.3% -10.3% -9.6% -10.9% ],
 %w[ -6.0% -7.2% -8.1% -8.6% -9.6% ],
 %w[ -4.8% -6.7% -7.7% -7.4% -9.5% ],
 %w[ -4.4% -6.4% -7.2% -6.2% -9.2% ],
@@ -238,8 +245,8 @@ volatility_return_ary = [
 %w[ 5.4%  8.7%  8.3%  8.2%  8.1%  ],
 %w[ 5.4%  9.3%  9.0%  8.3%  8.2%  ],
 %w[ 5.5%  9.4%  9.8%  9.9%  8.4%  ],
-%w[ 5.7%  10.7% 10.0% 13.2% 8.5%  ],
-%w[ 6.1%  nil   10.1% nil   12.2% ],
+%w[ 5.7% 10.7% 10.0% 13.2%  8.5%  ],
+%w[ 6.1%  nil  10.1%  nil  12.2%  ],
 %w[ 6.5%  nil   nil   nil   nil   ]
 ]
 

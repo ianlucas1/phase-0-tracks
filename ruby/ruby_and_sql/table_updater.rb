@@ -27,7 +27,8 @@ end
 
 create_blank_table = <<-SQL
   CREATE TABLE IF NOT EXISTS sims_table(
-    obs INTEGER PRIMARY KEY
+    obs INTEGER PRIMARY KEY,
+    sim_0 INT
   )
 SQL
 
@@ -69,11 +70,23 @@ simulations.each do |simulation|
   #  puts "#{row['sim_#{simulation.simulation_number}']}"
   # end
 
-  db.execute("CREATE TABLE combo_table_#{simulation.simulation_number} AS SELECT sims_table.obs, Sim_#{simulation.simulation_number}.sim_#{simulation.simulation_number} FROM sims_table, Sim_#{simulation.simulation_number} WHERE sims_table.obs = Sim_#{simulation.simulation_number}.obs;")
+  # db.execute("CREATE TABLE combo_table#{simulation.simulation_number} AS SELECT sims_table.obs, Sim_#{simulation.simulation_number}.sim_#{simulation.simulation_number} FROM sims_table, Sim_#{simulation.simulation_number} WHERE sims_table.obs = Sim_#{simulation.simulation_number}.obs;")
+
+  db.execute("CREATE TABLE sims_table#{simulation.simulation_number} AS SELECT Sim_1.obs, Sim_#{simulation.simulation_number}.obs, Sim_#{simulation.simulation_number}.sim_2 FROM sims_table JOIN Sim_#{simulation.simulation_number} ON Sim_1.obs = Sim_#{simulation.simulation_number}.obs;")
+
+  # CREATE TABLE joint_table12 AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2 FROM Sim_1 JOIN Sim_2 ON Sim_1.obs = Sim_2.obs;
 
 end
 
- 
+def columns
+  @stmt.columns
+end
+
+def full_column_names
+  get_boolean_pragma "full_column_names"
+end
+
+ # SELECT * INTO Persons_backup FROM Persons
 
   # merged_sims = db.execute("CREATE TABLE joint_table AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2 FROM Sim_1, Sim_2 WHERE Sim_1.obs = Sim_2.obs;")
 

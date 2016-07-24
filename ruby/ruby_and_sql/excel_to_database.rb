@@ -1,3 +1,9 @@
+# This program converts large arrays of financial data into SQLite database tables.
+
+# The data in the arrays was pasted as a block from pre-formatted Excel spreadsheets.
+
+# The resulting database is then used
+
 # require gems
 require 'sqlite3'
 
@@ -5,8 +11,8 @@ require 'sqlite3'
 db = SQLite3::Database.new "Simulations.db"
 db.results_as_hash = true
 
-# string commands to create tables to store the five columns 
-# of volatility and return data, respectively
+# two string commands to create tables to store the five  
+# columns of volatility and return data, respectively
 create_volatility_table = <<-SQL
   CREATE TABLE IF NOT EXISTS volatility_table(
     obs INTEGER PRIMARY KEY,
@@ -27,11 +33,11 @@ create_return_table = "CREATE TABLE IF NOT EXISTS return_table(
   quintile_5 REAL
   )"
 
-# create the 5-column volatility and return tables
+# Run SQLite commands to create the 5-column volatility and return tables.
 db.execute(create_volatility_table)
 db.execute(create_return_table)
 
-# method to insert data into the volatility and return tables
+# methods to insert data into the volatility and return tables
 def add_volatility_rows(db, q1, q2, q3, q4, q5)
   db.execute("INSERT INTO volatility_table 
     (quintile_1, quintile_2, quintile_3, quintile_4, quintile_5) 
@@ -248,7 +254,8 @@ return_ary = [
 [ 0.0650  , nil     , nil     , nil     , nil     ]
 ]
 
-# insert each row from the nested arrays into their respective data tables
+# call the methods to insert each row from the nested arrays 
+# into their respective data tables
 volatility_ary.each do |q1, q2, q3, q4, q5|
   add_volatility_rows(db, q1, q2, q3, q4, q5)
 end
@@ -260,6 +267,7 @@ end
 
 # PRINTOUTS
 
+# the first two printouts are based on the example from the kittens.rb DBC tutorial
 # return_table = db.execute("SELECT * FROM return_table")
 # return_table.each do |row|
 #  puts "#{row['quintile_1']} | #{row['quintile_2']} | #{row['quintile_3']} | #{row['quintile_4']} | #{row['quintile_5']}"
@@ -272,6 +280,8 @@ end
 # end
 # puts "\n"
 
+# the following three printouts are based on the Zetcode 
+# SQLite Ruby tutorial: http://zetcode.com/db/sqliteruby/queries/
 puts "\n"
 puts "PRINOUT OF ALL THE TABLES IN THE SIMULATIONS DATABASE:"
   db = SQLite3::Database.open "Simulations.db"

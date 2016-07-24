@@ -40,76 +40,76 @@ require 'sqlite3'
 
 # We will create a Cars table and insert several rows to it.
 
-# begin
+begin
 
-#   # connect to the test.db database.
-#   db = SQLite3::Database.open "test.db"
+  # connect to the tutorial.db database.
+  db = SQLite3::Database.new "tutorial.db"
 
-#   # The execute method executes the given SQL statement. 
-#   # A new Cars table is created if it does not already exist.
-#   db.execute "CREATE TABLE IF NOT EXISTS Cars(Id INTEGER PRIMARY KEY, 
-#         Name TEXT, Price INT)"
+  # The execute method executes the given SQL statement. 
+  # A new Cars table is created if it does not already exist.
+  db.execute "CREATE TABLE IF NOT EXISTS Cars(Id INTEGER PRIMARY KEY, 
+        Name TEXT, Price INT)"
 
-#     # These lines insert cars into the table. Note that by default, 
-#     # we are in the autocommit mode, where all changes to the table 
-#     # are immediately effective.
-#     db.execute "INSERT INTO Cars VALUES(1,'Audi',52642)"
-#     db.execute "INSERT INTO Cars VALUES(2,'Mercedes',57127)"
-#     db.execute "INSERT INTO Cars VALUES(3,'Skoda',9000)"
-#     db.execute "INSERT INTO Cars VALUES(4,'Volvo',29000)"
-#     db.execute "INSERT INTO Cars VALUES(5,'Bentley',350000)"
-#     db.execute "INSERT INTO Cars VALUES(6,'Citroen',21000)"
-#     db.execute "INSERT INTO Cars VALUES(7,'Hummer',41400)"
-#     db.execute "INSERT INTO Cars VALUES(8,'Volkswagen',21600)"
+    # These lines insert cars into the table. Note that by default, 
+    # we are in the autocommit mode, where all changes to the table 
+    # are immediately effective.
+    db.execute "INSERT INTO Cars VALUES(1,'Audi',52642)"
+    db.execute "INSERT INTO Cars VALUES(2,'Mercedes',57127)"
+    db.execute "INSERT INTO Cars VALUES(3,'Skoda',9000)"
+    db.execute "INSERT INTO Cars VALUES(4,'Volvo',29000)"
+    db.execute "INSERT INTO Cars VALUES(5,'Bentley',350000)"
+    db.execute "INSERT INTO Cars VALUES(6,'Citroen',21000)"
+    db.execute "INSERT INTO Cars VALUES(7,'Hummer',41400)"
+    db.execute "INSERT INTO Cars VALUES(8,'Volkswagen',21600)"
 
-#   # check for errors because working with databases is error prone
-#   rescue SQLite3::Exception => e 
+  # check for errors because working with databases is error prone
+  rescue SQLite3::Exception => e 
 
-#     puts "Exception occurred"
-#     puts e 
+    puts "Exception occurred"
+    puts e 
 
-#   # release the resources
-#   ensure
-#     db.close if db 
+  # release the resources
+  ensure
+    db.close if db 
 
-# end
+end
 
 
-# # Sometimes we need to determine the id of the last inserted row. 
-# # We use the last_insert_row_id method to find it.
+# Sometimes we need to determine the id of the last inserted row. 
+# We use the last_insert_row_id method to find it.
 
-# begin
+begin
 
-#   db = SQLite3::Database.new ":memory:"
+  db = SQLite3::Database.new ":memory:"
 
-#   # We create a Friends table in memory. 
-#   # The Id is automatically incremented.
-#   # In SQLite, INTEGER PRIMARY KEY column is auto incremented. 
-#   # There is also an AUTOINCREMENT keyword. When used in 
-#   # INTEGER PRIMARY KEY AUTOINCREMENT a slightly different algorithm 
-#   # for Id creation is used.
-#   db.execute "CREATE TABLE Friends(Id INTEGER PRIMARY KEY, Name TEXT)"
+  # We create a Friends table in memory. 
+  # The Id is automatically incremented.
+  # In SQLite, INTEGER PRIMARY KEY column is auto incremented. 
+  # There is also an AUTOINCREMENT keyword. When used in 
+  # INTEGER PRIMARY KEY AUTOINCREMENT a slightly different algorithm 
+  # for Id creation is used.
+  db.execute "CREATE TABLE Friends(Id INTEGER PRIMARY KEY, Name TEXT)"
 
-#   db.execute "INSERT INTO Friends(Name) VALUES ('Tom')"
-#   db.execute "INSERT INTO Friends(Name) VALUES ('Rebecca')"
-#   db.execute "INSERT INTO Friends(Name) VALUES ('Jim')"
-#   db.execute "INSERT INTO Friends(Name) VALUES ('Robert')"
-#   db.execute "INSERT INTO Friends(Name) VALUES ('Julian')"
+  db.execute "INSERT INTO Friends(Name) VALUES ('Tom')"
+  db.execute "INSERT INTO Friends(Name) VALUES ('Rebecca')"
+  db.execute "INSERT INTO Friends(Name) VALUES ('Jim')"
+  db.execute "INSERT INTO Friends(Name) VALUES ('Robert')"
+  db.execute "INSERT INTO Friends(Name) VALUES ('Julian')"
 
-#   # Using the last_insert_row_id method, we get the 
-#   # last inserted row Id.
-#   id = db.last_insert_row_id
-#   puts "The last id of the inserted row is #{id}"
-#   puts "\n"
+  # Using the last_insert_row_id method, we get the 
+  # last inserted row Id.
+  id = db.last_insert_row_id
+  puts "The last id of the inserted row is #{id}"
+  puts "\n"
 
-# rescue SQLite3::Exception => e 
+rescue SQLite3::Exception => e 
     
-#     puts "Exception occurred"
-#     puts e
+    puts "Exception occurred"
+    puts e
     
-# ensure
-#     db.close if db
-# end
+ensure
+    db.close if db
+end
 
 
 # In the last example of this chapter we fetch some data. More about data 
@@ -117,7 +117,7 @@ require 'sqlite3'
 
 # begin
     
-#     db = SQLite3::Database.open "test.db"
+#     db = SQLite3::Database.open "tutorial.db"
     
 #     # fetch 5 rows from the Cars table.
 #     # prepare an SQL statement for execution with the prepare method. 
@@ -145,6 +145,8 @@ require 'sqlite3'
 #       db.close if db
 # end
 
+
+# =======================================================================
 # =======================================================================
 
 # Doing SQL queries with Ruby in SQLite
@@ -158,7 +160,7 @@ puts "bind_param one row method example:"
 
 begin
     
-  db = SQLite3::Database.new "test.db"
+  db = SQLite3::Database.open "tutorial.db"
   
   id = 1
 
@@ -196,7 +198,7 @@ puts "while loop method example:"
 
 begin
 
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
       
   # This is the SQL statement for fetching 5 rows.
   stm = db.prepare "SELECT * FROM Cars LIMIT 5"
@@ -225,7 +227,7 @@ puts ".each method example:"
 
 begin
     
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
       
   stm = db.prepare "SELECT * FROM Cars LIMIT 5"
   rs = stm.execute
@@ -252,7 +254,7 @@ puts "Execute convenience method example:"
 
 begin
     
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
   
   # Here we do two jobs in one step. We prepare 
   # the statement and execute it. The method returns 
@@ -281,7 +283,7 @@ puts "Hash example:"
 
 begin
   
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
 
   # We set the results_as_hash property to true. All rows will be returned as 
   # Hash objects, with the column names as the keys.
@@ -312,7 +314,7 @@ puts "First of two convenience methods for retrieving a row or value:"
 
 begin
     
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
   
   # The get_first_row method gets the first row and discards all other rows.  
   row = db.get_first_row "SELECT * FROM Cars WHERE Id=1"       
@@ -335,7 +337,7 @@ puts "Second of two convenience methods for retrieving a row or value:"
 
 begin
     
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
 
   # With the get_first_value method we select a specific field of a row. 
   # In our case it is the price of the Bentley car.
@@ -378,7 +380,7 @@ puts "Using bind_param method to associate a variable with a placeholder charact
 
 begin
     
-  db = SQLite3::Database.new "test.db"
+  db = SQLite3::Database.open "tutorial.db"
 
   # This is a value that could come from a user: for example, from a HTML form.
   name = "Volkswagen"
@@ -411,7 +413,7 @@ puts "A second way of binding parameters:"
 
 begin
     
-  db = SQLite3::Database.new "test.db"
+  db = SQLite3::Database.open "tutorial.db"
 
   # Previously we have seen a question mark as a placeholder. 
   # SQLite Ruby supports named place holders too.
@@ -442,7 +444,7 @@ puts "A third way of binding parameters:"
 
 begin
   
-  db = SQLite3::Database.new "test.db"
+  db = SQLite3::Database.open "tutorial.db"
 
   # This time, everything (preparing the statement, 
   # binding the parameter and executing the statement) 
@@ -511,7 +513,7 @@ puts "\n"
 
 begin
     
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
 
   pst = db.prepare "SELECT * FROM Cars LIMIT 6"    
   
@@ -543,7 +545,7 @@ puts "Using PRAGMA table_info(tableName) to get metadata about Cars table:"
 
 begin
     
-  db = SQLite3::Database.open "test.db" 
+  db = SQLite3::Database.open "tutorial.db" 
   
   # The PRAGMA table_info(Cars) command returns one row for each column 
   # in the Cars table. Columns in the result set include the column order 
@@ -574,7 +576,7 @@ puts "Printing rows and column names together:"
 
 begin
     
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
 
   # The execute2 method executes the given SQL statement. 
   # The first row returned is the names of the columns.
@@ -595,12 +597,12 @@ ensure
 end
 
 
-# In our last example related to the metadata, we will list all tables in the test.db database.
-puts "Printing all tables in the test.db database:"
+# In our last example related to the metadata, we will list all tables in the tutorial.db database.
+puts "Printing all tables in the tutorial.db database:"
 
 begin
     
-  db = SQLite3::Database.open "test.db"
+  db = SQLite3::Database.open "tutorial.db"
 
   # The table names are retrieved from the sqlite_master table.
   rows = db.execute <<-SQL

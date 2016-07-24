@@ -4,63 +4,115 @@ db = SQLite3::Database.new("test.db")
 db.results_as_hash = true
 
 class Simulation
-  attr_reader :simulation_number, :starting_quintile
-  attr_accessor :vol_sims, :ret_sims 
-  def initialize(simulation_number)
-    @simulation_number = simulation_number
+  attr_reader :sim_num, :starting_quintile
+  attr_accessor :vol_sim, :ret_sim 
+  def initialize(sim_num)
+    @sim_num = sim_num
     @starting_quintile = rand(1..5)
-    @vol_sims = %w[ 1 2 3 4 5 ]
-    @ret_sims = %w[ 1% 2% 3% 4% 5% ]
+    @vol_sim = %w[ 1 2 3 4 5 ]
+    @ret_sim = %w[ 1% 2% 3% 4% 5% ]
   end
 end
 
-simulations = []
+sim_ary = []
 
-1.upto(2) { |simulation|
-  simulations << Simulation.new("#{simulation}")
+1.upto(2) { |sim|
+  sim_ary << Simulation.new("#{sim}")
 }
 
-simulations.each do |simulation|
+sim_ary.each do |sim|
   
   create_vol_prob_table = <<-SQL
-  CREATE TABLE IF NOT EXISTS Sim_#{simulation.simulation_number}(
+    CREATE TABLE IF NOT EXISTS Sim_#{sim.sim_num}(
     obs INTEGER PRIMARY KEY,
-    sim INT
+    sim_#{sim.sim_num} INT
     )
   SQL
 
   db.execute(create_vol_prob_table)
 
-  def add_sim(db, observation, i)
-    db.execute("INSERT INTO Sim_#{i} (sim) VALUES (?)", [observation])
+  def add_sim(db, obs, i)
+    db.execute("INSERT INTO Sim_#{i} (sim_#{i}) VALUES (?)", [obs])
   end
 
-  volatility_quintile_ary = simulation.ret_sims
+  volatility_quintile_ary = sim.ret_sim
 
-  volatility_quintile_ary.each do |observation|
-    add_sim(db, observation, simulation.simulation_number)
-  end
-
-  volatility_quintile_observations = db.execute("SELECT * FROM Sim_#{simulation.simulation_number}")
-
-  volatility_quintile_observations.each do |row|
-   puts "#{row['obs']} #{row['sim']}"
+  volatility_quintile_ary.each do |obs|
+    add_sim(db, obs, sim.sim_num)
   end
 
 end
 
-# p simulations
+db.execute <<-SQL
+  CREATE TABLE IF NOT EXISTS joint_table
+  AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2
+  FROM Sim_1
+  JOIN Sim_2
+  ON Sim_1.obs = Sim_2.obs;
+SQL
+
+# PRINTOUTS
+
+puts "Printout of first sim_ary hash:"
+p sim_ary[0]
+puts "\n"
+
+puts "Printout of all tables in the database:"
+begin
+  db = SQLite3::Database.open "test.db"
+  rows = db.execute <<-SQL
+    SELECT name FROM sqlite_master
+    WHERE type = 'table'
+    ORDER BY name;
+  SQL
+  rows.each do |row|
+    puts row
+  end
+  puts "\n"
+
+#puts "Using PRAGMA table_info(tableName) to get metadata about table Sim_1:"  
+  db = SQLite3::Database.open "test.db" 
+  stm = db.prepare "PRAGMA table_info('Sim_1')" 
+  rs = stm.execute 
+  rs.each do |row|
+ #   puts row.join "\s"
+  end
+  #puts "\n"
+
+# puts "Printout of Sim_1 rows and column names:"
+  db = SQLite3::Database.open "test.db"
+  rows = db.execute2 "SELECT * FROM Sim_1 LIMIT 5"
+  rows.each do |row|
+    # puts "%2s %4s" % [row[0], row[1]]
+  end  
+  # puts "\n"
+
+# puts "Print out of Sim_2 rows and column names:"
+  db = SQLite3::Database.open "test.db"
+  rows = db.execute2 "SELECT * FROM Sim_2 LIMIT 5"
+  rows.each do |row|
+    # puts "%2s %4s %4s" % [row[0], row[1], row[2]]
+  end  
+  # puts "\n"
+
+puts "Print out of joint_table rows and column names:"
+  db = SQLite3::Database.open "test.db"
+  rows = db.execute2 "SELECT * FROM joint_table LIMIT 5"
+  rows.each do |row|
+    puts "%2s %4s %5s" % [row[0], row[1], row[2]]
+  end  
+  puts "\n"
+
+end
 
 
-# db.execute("CREATE TABLE sims_table#{simulation.simulation_number} AS SELECT Sim_1.obs, Sim_#{simulation.simulation_number}.obs, Sim_#{simulation.simulation_number}.sim_2 FROM sims_table JOIN Sim_#{simulation.simulation_number} ON Sim_1.obs = Sim_#{simulation.simulation_number}.obs;")
 
-# def columns
-#   @stmt.columns
-# end
 
-# def full_column_names
-#   get_boolean_pragma "full_column_names"
-# end
+
+
+
+
+
 
 
 
@@ -76,22 +128,22 @@ end
 
  # SELECT * INTO Persons_backup FROM Persons
 
-  # merged_sims = db.execute("CREATE TABLE joint_table AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2 FROM Sim_1, Sim_2 WHERE Sim_1.obs = Sim_2.obs;")
+  # merged_sim = db.execute("CREATE TABLE joint_table AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2 FROM Sim_1, Sim_2 WHERE Sim_1.obs = Sim_2.obs;")
 
 # p ret_sim_ary
 
-# ret_sim_ary.each do |simulation|
+# ret_sim_ary.each do |sim|
 
-#   def add_sim(db, observation, i)
-#     db.execute("INSERT INTO Sim_#{i} (sim_#{i}) VALUES (?)", [observation])
+#   def add_sim(db, obs, i)
+#     db.execute("INSERT INTO Sim_#{i} (sim_#{i}) VALUES (?)", [obs])
 #   end
 
-#   add_sim(db, observation, simulation.simulation_number)
+#   add_sim(db, obs, sim.sim_num)
   
 
-# joined_sims = <<-SQL
+# joined_sim = <<-SQL
 #   CREATE VIEW
-#   db.joined_sims
+#   db.joined_sim
 #   AS
 #   SELECT
 #     Sim_1.id, 
@@ -103,10 +155,10 @@ end
 #     Sim_2
 # SQL
 
-# joined_sims_view = db.execute(joined_sims)
+# joined_sim_view = db.execute(joined_sim)
 
-# puts joined_sims
-# puts joined_sims_view
+# puts joined_sim
+# puts joined_sim_view
 
 
 # volatility_quintile_ary = %w[ 1 2 3 4 5 ]
@@ -122,13 +174,13 @@ end
 # db.execute(create_vol_prob_table)
 
 # # method to insert the rows of five columns
-# def add_quintile_rows(db, observation)
-#   db.execute("INSERT INTO q_table (q1_column) VALUES (?)", [observation])
+# def add_quintile_rows(db, obs)
+#   db.execute("INSERT INTO q_table (q1_column) VALUES (?)", [obs])
 # end
 
 # # loop to iteratively insert each row in the nested array
-# volatility_quintile_ary.each do |observation|
-#   add_quintile_rows(db, observation)
+# volatility_quintile_ary.each do |obs|
+#   add_quintile_rows(db, obs)
 # end
 
 # # variable to execute SQL query of the data points in each cell of each row
@@ -238,23 +290,23 @@ end
 # db.execute(alter_test_table)
 
 # class Test_Simulation
-#   attr_reader :simulation_number, :starting_quintile
-#   attr_accessor :vol_sims, :ret_sims 
-#   def initialize(simulation_number, starting_quintile)
-#     @simulation_number = simulation_number
+#   attr_reader :sim_num, :starting_quintile
+#   attr_accessor :vol_sim, :ret_sim 
+#   def initialize(sim_num, starting_quintile)
+#     @sim_num = sim_num
 #     @starting_quintile = starting_quintile
-#     @vol_sims = [starting_quintile]
-#     @ret_sims = [nil]
+#     @vol_sim = [starting_quintile]
+#     @ret_sim = [nil]
 #   end
 # end
 
-# test_sims = []
+# test_sim = []
 
 # def new_sim(db, rand_num)
 #   db.execute("INSERT INTO test_table (column) VALUES (?)", [rand_num])
 # end
 
-# # generates random quintiles for a single simulation
+# # generates random quintiles for a single sim
 # 5.times do
 #   new_sim(db, rand(1..5))
 # end
@@ -325,31 +377,31 @@ end
 # ALMOST BUT NOT QUITE PROPER MERGE
 
 
-# simulations.each do |simulation|
+# sim_ary.each do |sim|
 # end
 
-  # def add_quintile_rows(db, observation, i)
-  #   db.execute("INSERT INTO sims_table (Sim_#{i}) VALUES (?)", [observation])
+  # def add_quintile_rows(db, obs, i)
+  #   db.execute("INSERT INTO sim_table (Sim_#{i}) VALUES (?)", [obs])
   # end
 
-  # volatility_quintile_ary = simulation.vol_sims
+  # volatility_quintile_ary = sim.vol_sim
 
-  # volatility_quintile_ary.each do |observation|
-  #   add_quintile_rows(db, observation, simulation.simulation_number)
+  # volatility_quintile_ary.each do |obs|
+  #   add_quintile_rows(db, obs, sim.sim_num)
   # end
 
 # LEGACY VERSION OF NEARLY FUNCTIONING CODE
 
-# 1.upto(2) { |simulation|
-#   simulations << Simulation.new("#{simulation}")
+# 1.upto(2) { |sim|
+#   sim_ary << Simulation.new("#{sim}")
 # }
 
-# simulations.each do |simulation|
-#   p simulation.ret_sims
+# sim_ary.each do |sim|
+#   p sim.ret_sim
 # end
 
 # create_blank_table = <<-SQL
-#   CREATE TABLE IF NOT EXISTS sims_table(
+#   CREATE TABLE IF NOT EXISTS sim_table(
 #     obs INTEGER PRIMARY KEY,
 #     sim_0 INT
 #   )
@@ -357,45 +409,45 @@ end
 
 # db.execute(create_blank_table)
 
-# simulations.each do |simulation|
+# sim_ary.each do |sim|
   
-#   # db.execute("ALTER TABLE sims_table ADD sim_#{simulation.simulation_number} INT")
+#   # db.execute("ALTER TABLE sim_table ADD sim_#{sim.sim_num} INT")
 
-#   # ret_sim_ary << simulation.ret_sims
+#   # ret_sim_ary << sim.ret_sim
 
 #   create_vol_prob_table = <<-SQL
-#   CREATE TABLE IF NOT EXISTS Sim_#{simulation.simulation_number}(
+#   CREATE TABLE IF NOT EXISTS Sim_#{sim.sim_num}(
 #     obs INTEGER PRIMARY KEY,
-#     sim_#{simulation.simulation_number} INT
+#     sim_#{sim.sim_num} INT
 #     )
 #   SQL
 
 #   db.execute(create_vol_prob_table)
 
-#   def add_sim(db, observation, i)
-#     db.execute("INSERT INTO Sim_#{i} (sim_#{i}) VALUES (?)", [observation])
+#   def add_sim(db, obs, i)
+#     db.execute("INSERT INTO Sim_#{i} (sim_#{i}) VALUES (?)", [obs])
 #   end
 
-#   # def add_sim2(db, observation, i)
-#   #   db.execute("INSERT INTO sims_table (sim_#{i}) VALUES (?) WHERE sims_table.obs = #{i}", [observation])
+#   # def add_sim2(db, obs, i)
+#   #   db.execute("INSERT INTO sim_table (sim_#{i}) VALUES (?) WHERE sim_table.obs = #{i}", [obs])
 #   # end
 
-#   volatility_quintile_ary = simulation.ret_sims
+#   volatility_quintile_ary = sim.ret_sim
 
-#   volatility_quintile_ary.each do |observation|
-#     add_sim(db, observation, simulation.simulation_number)
-#     # add_sim2(db, observation, simulation.simulation_number)
+#   volatility_quintile_ary.each do |obs|
+#     add_sim(db, obs, sim.sim_num)
+#     # add_sim2(db, obs, sim.sim_num)
 #   end
 
-#   volatility_quintile_observations = db.execute("SELECT * FROM Sim_#{simulation.simulation_number}")
+#   volatility_quintile_obss = db.execute("SELECT * FROM Sim_#{sim.sim_num}")
 
-#   # volatility_quintile_observations.each do |row, i|
-#   #  puts "#{row['sim_#{simulation.simulation_number}']}"
+#   # volatility_quintile_obss.each do |row, i|
+#   #  puts "#{row['sim_#{sim.sim_num}']}"
 #   # end
 
-#   # db.execute("CREATE TABLE combo_table#{simulation.simulation_number} AS SELECT sims_table.obs, Sim_#{simulation.simulation_number}.sim_#{simulation.simulation_number} FROM sims_table, Sim_#{simulation.simulation_number} WHERE sims_table.obs = Sim_#{simulation.simulation_number}.obs;")
+#   # db.execute("CREATE TABLE combo_table#{sim.sim_num} AS SELECT sim_table.obs, Sim_#{sim.sim_num}.sim_#{sim.sim_num} FROM sim_table, Sim_#{sim.sim_num} WHERE sim_table.obs = Sim_#{sim.sim_num}.obs;")
 
-#   db.execute("CREATE TABLE sims_table#{simulation.simulation_number} AS SELECT Sim_1.obs, Sim_#{simulation.simulation_number}.obs, Sim_#{simulation.simulation_number}.sim_2 FROM sims_table JOIN Sim_#{simulation.simulation_number} ON Sim_1.obs = Sim_#{simulation.simulation_number}.obs;")
+#   db.execute("CREATE TABLE sim_table#{sim.sim_num} AS SELECT Sim_1.obs, Sim_#{sim.sim_num}.obs, Sim_#{sim.sim_num}.sim_2 FROM sim_table JOIN Sim_#{sim.sim_num} ON Sim_1.obs = Sim_#{sim.sim_num}.obs;")
 
 #   # CREATE TABLE joint_table12 AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2 FROM Sim_1 JOIN Sim_2 ON Sim_1.obs = Sim_2.obs;
 

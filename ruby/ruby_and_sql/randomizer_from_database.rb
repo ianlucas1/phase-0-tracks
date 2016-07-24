@@ -1,150 +1,271 @@
 # require gems
 require 'sqlite3'
 
-# access database of volatility quintile observations
-db = SQLite3::Database.new("Volatility_Quintile_Probabilities.db")
+# access database of volatility and return quintile tables
+db = SQLite3::Database.open "Simulations.db"
 db.results_as_hash = true
 
-# creates a data table with one column to hold results
-# of the first simulation
-# create_vol_sim_table = <<-SQL
-#   CREATE TABLE IF NOT EXISTS vol_sim_table(
-#     sim_obs INTEGER PRIMARY KEY,
-#     sim_column INT,
-#   )
-# SQL
-# db.execute(create_vol_sim_table)
-
-# ALTER TABLE table_name ADD column_name datatype
-# may need to add ';'
-# alter_vol_sim_table = <<-SQL
-#   ALTER TABLE vol_sim_table
-#     ADD sim_column INT
-# SQL
-# db.execute(alter_vol_sim_table)
-
-# # method to add first column of simulated volatility quintiles
-# def add_vol_quintile_row_1(db, sample)
-#   db.execute("INSERT INTO vol_sim_table (sim_column) VALUES (?)", [sample])
-# end
-
-# def add_vol_quintile_row_n(db, sample)
-#   db.execute("INSERT INTO vol_sim_table (sim_column) VALUES (?)", [sample])
-# end
-
-# volatility_quintile_ary.each do |q1_obs, q2_obs, q3_obs, q4_obs, q5_obs|
-#   add_quintile_rows(db, q1_obs, q2_obs, q3_obs, q4_obs, q5_obs)
-# end
-
-
-# create variable to access each item in the database table called 'q_table'
-Volatility_Quintile_Observations = db.execute("SELECT * FROM q_table")
-Vol_Quintile_Ret_Observations = db.execute("SELECT * FROM ret_table")
+# create variable to access each item in the database tables
+volatility_table = db.execute("SELECT * FROM volatility_table")
+return_table = db.execute("SELECT * FROM return_table")
 
 # create arrays to store the column data from the database
-# this will be sampled later in the program
-vq_1_ary = []
-vq_2_ary = []
-vq_3_ary = []
-vq_4_ary = []
-vq_5_ary = []
+# (these arrays will be sampled later in the program)
+vol_q_1_ary = []
+vol_q_2_ary = []
+vol_q_3_ary = []
+vol_q_4_ary = []
+vol_q_5_ary = []
 
-rq_1_ary = []
-rq_2_ary = []
-rq_3_ary = []
-rq_4_ary = []
-rq_5_ary = []
+ret_q_1_ary = []
+ret_q_2_ary = []
+ret_q_3_ary = []
+ret_q_4_ary = []
+ret_q_5_ary = []
 
 # fill the arrays with the table's column data
-Volatility_Quintile_Observations.each do |row|
- vq_1_ary  << row['q1_column']
- vq_2_ary  << row['q2_column']
- vq_3_ary  << row['q3_column']
- vq_4_ary  << row['q4_column']
- vq_5_ary  << row['q5_column']
+volatility_table.each do |row|
+  vol_q_1_ary << row['quintile_1']
+  vol_q_2_ary << row['quintile_2']
+  vol_q_3_ary << row['quintile_3']
+  vol_q_4_ary << row['quintile_4']
+  vol_q_5_ary << row['quintile_5']
 end
 
-Vol_Quintile_Ret_Observations.each do |row|
- rq_1_ary  << row['q1_column']
- rq_2_ary  << row['q2_column']
- rq_3_ary  << row['q3_column']
- rq_4_ary  << row['q4_column']
- rq_5_ary  << row['q5_column']
+# the return table contains some nil values,
+# so those are removed in this process
+return_table.each do |row|
+  if row['quintile_1'] != nil
+    ret_q_1_ary << row['quintile_1']
+  end
+  if row['quintile_2'] != nil
+    ret_q_2_ary << row['quintile_2']
+  end
+  if row['quintile_3'] != nil
+    ret_q_3_ary << row['quintile_3']
+  end
+  if row['quintile_4'] != nil
+    ret_q_4_ary << row['quintile_4']
+  end
+  if row['quintile_5'] != nil
+    ret_q_5_ary << row['quintile_5']
+  end
 end
 
-# test print of the array data
-# p vq_1_ary
-# p vq_2_ary
-# p vq_3_ary
-# p vq_4_ary
-# p vq_5_ary
-
-# p rq_1_ary
-# p rq_2_ary
-# p rq_3_ary
-# p rq_4_ary
-# p rq_5_ary
-
-# define simulation class with requisite attributes so that simulations can be initiated
+# define simulation class with requisite attributes to run the simulations
 class Simulation
 
-  attr_reader :simulation_number, :starting_quintile
-  attr_accessor :vol_sims, :ret_sims 
+  attr_reader :sim_num
+  attr_accessor :vol_sim, :ret_sim 
 
-  def initialize(simulation_number, starting_quintile)
-    @simulation_number = simulation_number
-    @starting_quintile = starting_quintile
-    @vol_sims = [starting_quintile]
-    @ret_sims = [nil]
+  def initialize(sim_num)
+    @sim_num = sim_num
+    @vol_sim = [rand(1..5)]
+    @ret_sim = [nil]
   end
 
 end
 
-# for now, create an array to store each simulation
-# it might be better to store this info in a data table
-simulations = []
+# create an array to store each sim
+sim_ary = []
+table_ary = []
+col_ary = []
 
 # initiate any number of simulations
 # each simulation is numbered, which is my version of a data table primary key
-# each simulation randomly assigns a "month 0" starting volatility quintile
-1.upto(2) { |simulation|
-  simulations << Simulation.new("#{simulation}", rand(1..5))
-}
+1.upto(2) do |sim|
+  sim_ary << Simulation.new("#{sim}")
+end
 
-# iterate through each simulation
-# based on the volatility in an index position of the vol_sims array,
-# randomly sample from the quintile arrays that were extracted from
-# the Volatility_Quintile_Probabilities database
-simulations.each do |simulation|
+# Next, we iteratively build each simulation's volatility and return array
+sim_ary.each do |sim|
+
+# The if-else logic randomly draws from the volatility quintile 
+# arrays and the return quintile arrays that were populated with data 
+# imported from the volatility_table as well as the return_table
+# contained in the Simulation database.
+
+# Beginning with a randomly assigned number 1 - 5 (corresponding to
+# the five quintile columns in those tables), the program samples
+# the volatility array, which itself contains quintile values based
+# on the previously assessed probability that an observation from
+# a given quintile value will occur in the subsequent period.
+
   i = 0
+
+  # the number that 'i' goes up to represents months that determine
+  # the length of the simulation
   until i == 10
-    if simulation.vol_sims[i] == 1
-      simulation.vol_sims << vq_1_ary.sample
-      simulation.ret_sims << rq_1_ary.sample
-    elsif simulation.vol_sims[i] == 2
-      simulation.vol_sims << vq_2_ary.sample
-      simulation.ret_sims << rq_2_ary.sample
-    elsif simulation.vol_sims[i] == 3
-      simulation.vol_sims << vq_3_ary.sample
-      simulation.ret_sims << rq_3_ary.sample
-    elsif simulation.vol_sims[i] == 4
-      simulation.vol_sims << vq_4_ary.sample
-      simulation.ret_sims << rq_4_ary.sample
+    if sim.vol_sim[i] == 1
+      sim.vol_sim << vol_q_1_ary.sample
+      sim.ret_sim << ret_q_1_ary.sample
+    elsif sim.vol_sim[i] == 2
+      sim.vol_sim << vol_q_2_ary.sample
+      sim.ret_sim << ret_q_2_ary.sample
+    elsif sim.vol_sim[i] == 3
+      sim.vol_sim << vol_q_3_ary.sample
+      sim.ret_sim << ret_q_3_ary.sample
+    elsif sim.vol_sim[i] == 4
+      sim.vol_sim << vol_q_4_ary.sample
+      sim.ret_sim << ret_q_4_ary.sample
     else
-      simulation.vol_sims << vq_5_ary.sample
-      simulation.ret_sims << rq_5_ary.sample
+      sim.vol_sim << vol_q_5_ary.sample
+      sim.ret_sim << ret_q_5_ary.sample
     end
     i += 1  
   end
+
+  # string commands to create a table for each simulation to store 
+  # the values sampled from the series of return arrays
+  create_vol_prob_table = 
+    "CREATE TABLE IF NOT EXISTS Sim_#{sim.sim_num}(
+    obs INTEGER PRIMARY KEY,
+    sim_#{sim.sim_num} INT
+    );"
+
+  # create the simulation table  
+  db.execute(create_vol_prob_table)
+
+  table_ary << "Sim_#{sim.sim_num}"
+    
+  col_names = db.prepare "SELECT * FROM Sim_#{sim.sim_num} WHERE sim_#{sim.sim_num}"
+  col_ary << col_names.columns.last
+
+  # method to insert each sampled return observation into the simulation table
+  def add_sim(db, obs, i)
+    db.execute("INSERT INTO Sim_#{i} (sim_#{i}) VALUES (?)", [obs])
+  end
+
+  # create an object that holds all the simulation values that will be inserted
+  # into the simulation table
+  ret_quintile_ary = sim.ret_sim
+
+  # execute the insertion of each simulation value, thus completing the simulation
+  ret_quintile_ary.each do |obs|
+    add_sim(db, obs, sim.sim_num)
+  end
+
 end
 
-# print out to check
-simulations.each { |simulation|
-  puts "SIMULATION ##{simulation.simulation_number}:"
-  puts "starting_quintile: #{simulation.starting_quintile}"
-  puts "vol_sim: #{simulation.vol_sims}"
-  puts "ret_sim: #{simulation.ret_sims}"
-  puts "-----------------------------------------------"   
-}
+  db.execute <<-SQL
+    CREATE TABLE IF NOT EXISTS joint_table
+    AS SELECT *
+    FROM Sim_1
+    JOIN Sim_2
+    ON Sim_1.obs = Sim_2.obs;
+  SQL
 
-# # p simulations
+https://www.sqlite.org/faq.html#q11
+
+# # iteratively join all the simulation tables into a single table
+# i = 0
+# j = 1
+
+# until i = col_ary.length
+
+#   db.execute <<-SQL
+#     CREATE TABLE IF NOT EXISTS joint_table
+#     AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2
+#     FROM Sim_1
+#     JOIN Sim_2
+#     ON Sim_1.obs = Sim_2.obs;
+#   SQL
+
+# Printout of column array:
+# ["Sim_1", "Sim_2"]
+
+# Printout of column array:
+# ["sim_1", "sim_2"]
+
+#   db.execute <<-SQL
+#     CREATE TABLE IF NOT EXISTS joint_table
+#     AS SELECT Sim_1.obs, Sim_1.sim_1, Sim_2.sim_2
+#     FROM Sim_1
+#     JOIN Sim_2
+#     ON Sim_1.obs = {table_ary.[j];
+#   SQL
+
+# end
+
+
+# PRINTOUTS
+begin
+
+# p vol_q_1_ary
+# p vol_q_2_ary
+# p vol_q_3_ary
+# p vol_q_4_ary
+# p vol_q_5_ary
+
+# p ret_q_1_ary
+# p ret_q_2_ary
+# p ret_q_3_ary
+# p ret_q_4_ary
+# p ret_q_5_ary
+
+# sim_ary.each { |sim|
+#   puts "SIMULATION ##{sim.sim_num}:"
+#   puts "vol_sim: #{sim.vol_sim}"
+#   puts "ret_sim: #{sim.ret_sim}"
+#   puts "-----------------------------------------------"   
+# }
+
+# puts "Printout of first sim_ary hash:"
+# p sim_ary[0]
+# puts "\n"
+
+puts "Printout of table name array:"
+p table_ary
+puts "\n"
+
+puts "Printout of column name array:"
+p col_ary
+puts "\n"
+
+puts "Printout of all tables in the database:"
+
+db = SQLite3::Database.open "Simulations.db"
+rows = db.execute <<-SQL
+  SELECT name FROM sqlite_master
+  WHERE type = 'table'
+  ORDER BY name;
+SQL
+rows.each do |row|
+  puts row
+end
+puts "\n"
+
+# puts "Using PRAGMA table_info(tableName) to get metadata about table Sim_1:"  
+db = SQLite3::Database.open "Simulations.db" 
+stm = db.prepare "PRAGMA table_info('Sim_1')" 
+rs = stm.execute 
+rs.each do |row|
+  # puts row.join "\s"
+end
+# puts "\n"
+
+# puts "Printout of Sim_1 rows and column names:"
+db = SQLite3::Database.open "Simulations.db"
+rows = db.execute2 "SELECT * FROM Sim_1 LIMIT 5"
+rows.each do |row|
+  # puts "%2s %4s" % [row[0], row[1]]
+end  
+# puts "\n"
+
+# puts "Print out of Sim_2 rows and column names:"
+db = SQLite3::Database.open "Simulations.db"
+rows = db.execute2 "SELECT * FROM Sim_2 LIMIT 5"
+rows.each do |row|
+  # puts "%2s %4s %4s" % [row[0], row[1], row[2]]
+end  
+# puts "\n"
+
+puts "Print out of joint_table rows and column names:"
+db = SQLite3::Database.open "Simulations.db"
+rows = db.execute2 "SELECT * FROM joint_table"
+rows.each do |row|
+  puts "%2s %9s %9s %9s" % [row[0], row[1], row[2], row[3]]
+end  
+puts "\n"
+
+end

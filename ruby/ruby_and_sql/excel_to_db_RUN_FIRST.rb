@@ -1,8 +1,54 @@
-# This program converts large arrays of financial data into SQLite database tables.
+# TABLE OF CONTENTS
+# 1) INTRODUCTION
+# 2) USER INTERFACE
+# 3) BUSINESS LOGIC
+# 4) PRINTOUTS
 
-# The data in the arrays was pasted as a block from pre-formatted Excel spreadsheets.
+# ============================================================================
+# ============================================================================
+# ============================= INTRODUCTION =================================
+# ============================================================================
+# ============================================================================
 
-# The resulting database is then used
+# WARNING: This isn't a fun and fanciful program, like the Shakespearean Insult
+# Generator, the Roller Derby Name Generator, or the Chuck Norris Fact Generator
+# that I thought of building.  Instead, the two files I created for Challenge 8.5 
+# relate to a financial engineering project that I have been working on in Excel.  
+# My goal in this challenge was to replicate a portion of that project using SQL 
+# and Ruby.  After no small amount of blood, sweat, and personal anguish, I 
+# believe that I accomplished my goal.
+
+# This program in this file converts large arrays of financial data into SQL
+# database tables; the data in the arrays was pasted as a block from pre-formatted 
+# Excel spreadsheets.  I know this exercise is slightly silly because most database
+# programs can import spreadsheets into database files.  To my  knowledge, SQLite 
+# does support importing CSV files (https://www.sqlite.org/cli.html#section_8), but
+# I did to improve my understanding of how to interact with SQL via Ruby.
+
+# The resulting database is then used by the other Ruby file in the directory, named
+# monte_carlo_RUN_SECOND - so please read through and run this file to understand how the 
+# database is constructed and then read/run the monte_carlo file to perform the 
+# simulations which access and modify the database.
+
+
+
+# ============================================================================
+# ============================================================================
+# ============================ USER INTERFACE ================================
+# ============================================================================
+# ============================================================================
+
+# There is no user interface for this file.  Please just run it from the command 
+# line, then open the accompanying file, monte_carlo_RUN_SECOND.rb, which does
+# have a (very basic) user interface.
+
+
+
+# ============================================================================
+# ============================================================================
+# ============================= BUSINESS LOGIC ===============================
+# ============================================================================
+# ============================================================================
 
 # require gems
 require 'sqlite3'
@@ -265,9 +311,14 @@ return_ary.each do |q1, q2, q3, q4, q5|
 end
 
 
-# PRINTOUTS
+# ============================================================================
+# ============================================================================
+# ================================ PRINTOUTS =================================
+# ============================================================================
+# ============================================================================
 
 # the first two printouts are based on the example from the kittens.rb DBC tutorial
+
 # return_table = db.execute("SELECT * FROM return_table")
 # return_table.each do |row|
 #  puts "#{row['quintile_1']} | #{row['quintile_2']} | #{row['quintile_3']} | #{row['quintile_4']} | #{row['quintile_5']}"

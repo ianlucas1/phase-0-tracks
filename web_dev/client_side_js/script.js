@@ -1,34 +1,45 @@
-    function initElement() {  
-        var p = document.getElementById("wildfire");  
-        p.onmouseover = showMouseOver;
-        p.onmouseout = showMouseOut;
-        p.onclick = showAlert;
-    };  
+console.log("The script is running!");
 
-    function giveOrder() {
-        var para = document.createElement("P");
-        var t = document.createTextNode("Move your mouse over the fire to position your water balloon-equipped drone above it.");
-        para.appendChild(t);
-        document.body.appendChild(para);
-    };
+var photo = document.getElementById("wildfire");
+var photo = document.getElementById("wildfire");
 
-    function showMouseOver() {  
-        var notice = document.getElementById("notice");
-        notice.innerHTML = 'You are over the target now. Click it to release the water balloon!';
-    };
-    
-    function showMouseOut() {
-        var notice = document.getElementById("notice");
-        notice.innerHTML = 'You are no longer over the target.';
-    };
+function initElement() {
+  photo.onmouseover = showMouseOver;
+  photo.onmouseout = showMouseOut;
+  photo.onclick = showAlert;
+};  
 
-    function showAlert() {
-        alert("SPLASH! Congrats on a successful mission! You have save an untold number of wildcat kittens, for which the cat gods will surely reward you.")
-    };
+function giveOrder() {
+  var paragraph = document.createElement("P");
+  var text = document.createTextNode("Move your mouse over the fire to position your water balloon-equipped drone above it.");
+  paragraph.appendChild(text);
+  document.body.appendChild(paragraph);
+};
 
-    function addPinkBorder(event) {
-        event.target.style.border = "5px solid pink";
-    }
+function showMouseOver() {  
+  var notice = document.getElementById("notice");
+  notice.innerHTML = 'You are over the target now. Click it to release the water balloon!';
+};
 
-    var photo = document.getElementById("wildfire");
-    photo.addEventListener("click", addPinkBorder);
+function showMouseOut() {
+  var notice = document.getElementById("notice");
+  notice.innerHTML = 'You are no longer over the target.';
+};
+
+function showAlert() {
+  alert("SPLASH! Congrats on a successful mission! You have save an untold number of wildcat kittens, for which the cat gods will surely reward you.")
+};
+
+function hidePhoto() {
+  event.target.hidden = true;
+};
+
+function addPinkBorder(event) {
+  event.target.style.border = "5px solid pink";
+};
+
+// photo.addEventListener("click", addPinkBorder);
+photo.addEventListener("click", hidePhoto);
+
+
+

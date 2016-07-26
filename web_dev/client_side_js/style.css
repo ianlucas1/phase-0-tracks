@@ -1,10 +1,16 @@
-.image {
+.graphic {
   display: block;
   margin-left: auto;
   margin-right: auto; 
 }
 
 #wildfire {    
+  position: relative;
+  margin-top: 100px;
+  left: 5px;
+}
+
+#button {    
   position: relative;
   margin-top: 100px;
   left: 5px;

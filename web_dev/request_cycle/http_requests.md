@@ -21,3 +21,4 @@ HTTP (hypertext transfer protocol) permits request and response interactions bet
 **What is a cookie (the technical kind, not the delicious kind)? How does it relate to HTTP requests?**
 
 Cookies are a confidential shared connection ("web key") between client a server that is sent with each request from the client so that the server can keep track and verify that the requests are coming from the same client.  This has negative security implications if the cookie can be intercepted by a nefarious agent.  There are apparently compatibility issues with REST, the "underlying architectural principle" of the Internet.  Because it has to be processed, it can also cause performance issues, especially with mobile device clients.
+

@@ -23,3 +23,4 @@ A VPS is a section of a larger hard drive accessible through the Internet, on wh
 **Why is it considered a bad idea to run programs as the root user on a Linux system?**
 
 Root access is like super-administrator access where bugs, mistakes, viruses, or hackers could destroy the system in some way.  Blocking off root access compartmentalizes the system and makes it harder for those bad elements to do system-wide damage.
+

@@ -6,12 +6,54 @@
 
 #wildfire {    
   position: relative;
-  margin-top: 100px;
-  left: 5px;
+  margin-top: 50px;
+  left: 400px;
+}
+
+#saved-kitten {    
+  position: relative;
+  margin-top: 50px;
+  left: 400px;
 }
 
 #button {    
   position: relative;
-  margin-top: 100px;
-  left: 5px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font: 15px helvetica, arial;
 }  
+
+#img-attribution {  
+  margin-top: 10px; 
+}
+
+h1 {
+  text-align: center; 
+  font: 25px helvetica, arial;
+}
+
+h2 {
+  text-align: center; 
+  margin-top: 50px;
+  font: 15px helvetica, arial;
+}
+
+h3 {
+  text-align: center; 
+  font: 12px helvetica, arial;
+  margin-top: 10px;
+}
+
+body {
+  font: 20px helvetica, arial;
+}
+
+div { 
+  text-align: center; 
+  font: 20px helvetica, arial;
+}
+
+P { 
+  text-align: center; 
+}
+

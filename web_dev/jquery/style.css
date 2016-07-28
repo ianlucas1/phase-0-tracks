@@ -1,0 +1,20 @@
+h1 {
+  text-align: center; 
+  font: 25px helvetica, arial;
+}
+
+p {
+  text-align: center; 
+  font: 15px helvetica, arial;
+}
+
+img {
+  display: block;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#mario{
+  position: relative;
+}

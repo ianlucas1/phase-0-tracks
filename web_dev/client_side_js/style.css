@@ -45,7 +45,7 @@ h3 {
 }
 
 body {
-  font: 20px helvetica, arial;
+  
 }
 
 div { 
@@ -54,6 +54,7 @@ div {
 }
 
 P { 
+  font: 20px helvetica, arial;
   text-align: center; 
 }
 

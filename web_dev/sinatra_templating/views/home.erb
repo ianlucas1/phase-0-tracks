@@ -1,16 +1,44 @@
+<!DOCTYPE html>
+
 <html>
+
 <head>
-  <title>Student Management System</title>
+
+  <title>To Dos</title>
+
   <link rel="stylesheet" href="styles.css">
+
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script src="script.js"></script>
+
 </head>
+
+
 <body>
-  <h1>Student Management System</h1>
-  <p>Welcome to the student management system.</p>
-  <p>Click <a href="students/new">here</a> to create a new student.</p>
-  <ul>
-    <% @students.each do |student| %>
-      <li><%= student['name'] %>, <%= student['age'] %></li>
+
+  <h1>My To Do List</h1>
+
+  <p>Click <a href="tasks/new">here</a> to add a task.</p>
+
+  <ol class="todolist">
+
+    <% i = 1 %>  <!-- playing around with using and printing loop counters -->
+  
+    <% @mytodolist.each do |job| %>
+  
+      <li>Job <%=i%>: <%= job['my_jobs'] %></li>
+  
+    <% i += 1 %>
+  
     <% end %>
-  </ul>
+  
+  </ol>
+
 </body>
+
 </html>
+
+
